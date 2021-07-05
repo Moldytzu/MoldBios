@@ -10,3 +10,6 @@ A basic bios for QEMU x86.
 ### [ ] PS/2
 ### [ ] AHCI
 ### [ ] Booting
+
+## Notes
+This project is based off of https://pitust.dev/biosdev/step1
