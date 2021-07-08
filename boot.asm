@@ -17,16 +17,16 @@ boot:
     mov si,NewLine
     call putstr
     
-    ;todo: load gdt
+    ;load gdt
+    lgdt [GDTDescriptor]
     
     ;enable protection in cr0
     mov eax,cr0
     or eax,1
     mov cr0,eax
     
-    ;todo: load segment selectors
-    
-    ;todo: jump into protected mode
+    ;jump into protected mode
+    jmp 0x8:PMEntry
     
     jmp $    
 
@@ -70,12 +70,34 @@ putstr:
 .done:
     ret ;return
 
-;Data    
+;Data  
+
+GDT:
+    dq 0x0000000000000000
+    dq 0x00cf9a000000ffff
+    dq 0x00cf93000000ffff
+    
+GDTDescriptor:
+    dw 23
+    dd GDT
+    
 
 Info: db "INFO: ",0
 BootText: db "MoldBios started in Real Mode!",0   
 NewLine: db 10,13,0
 
+BITS 32
+
+PMEntry:
+    mov ax, 0x10
+    mov ds, ax
+    mov ss, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    jmp $
+
+BITS 16
 ;Reset vector
 times (0x10000 - 16) - ($ - $$) db 0x00
 
