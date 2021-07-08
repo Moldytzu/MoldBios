@@ -9,10 +9,25 @@ ORG 0xF0000 ;bios block location
 boot:
     call initsegments
 
-    ;print the boot text    
+    ;print the boot text
+    mov si,Info
+    call putstr
     mov si,BootText
     call putstr
-
+    mov si,NewLine
+    call putstr
+    
+    ;todo: load gdt
+    
+    ;enable protection in cr0
+    mov eax,cr0
+    or eax,1
+    mov cr0,eax
+    
+    ;todo: load segment selectors
+    
+    ;todo: jump into protected mode
+    
     jmp $    
 
 ;InitSegments
@@ -24,6 +39,7 @@ initsegments:
     mov ds, ax
     mov ax, 0
     mov es, ax
+    ret
     
 ;PutChar
 ;
@@ -56,7 +72,9 @@ putstr:
 
 ;Data    
 
-BootText: db "MoldBios!",10,13,0   
+Info: db "INFO: ",0
+BootText: db "MoldBios started in Real Mode!",0   
+NewLine: db 10,13,0
 
 ;Reset vector
 times (0x10000 - 16) - ($ - $$) db 0x00
