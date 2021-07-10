@@ -1,11 +1,10 @@
 ASM = nasm
 ASMFLAGS = -fbin
 
-INFILES = boot.asm
-OUTFILE = bios.qemu
+OUTFILE = bin/bios.qemu
 
 Build:
-	$(ASM) $(ASMFLAGS) boot.asm -o bios.qemu
+	$(ASM) $(ASMFLAGS) src/boot.asm -o $(OUTFILE)
 	
 Run: Build
-	qemu-system-x86_64 -bios bios.qemu -serial stdio
+	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio

@@ -1,12 +1,10 @@
 # MoldBios
-A basic bios for QEMU x86.
+A basic bios written in x86 assembly that runs in protected mode for QEMU.
 
 ## Roadmap
 
 ### [X] Serial communication
-### [-] Protected Mode (Working on) 
-### [ ] Long Mode
-### [ ] VGA
+### [-] VGA (Working on)
 ### [ ] PS/2
 ### [ ] PCI
 ### [ ] AHCI
