@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "fwcfg.h": "c",
+        "ports.h": "c"
+    }
+}
