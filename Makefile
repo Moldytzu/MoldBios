@@ -9,7 +9,7 @@ LDFLAGS = -nostdlib -static -Tlink.ld
 
 OUTFILE = bin/bios.qemu
 
-CBuild:
+CBuild: Clean
 	mkdir -p bin/obj/IO/
 	mkdir -p bin/obj/Drivers/
 	mkdir -p bin/obj/Misc/
@@ -23,5 +23,8 @@ Build: CBuild
 	$(LD) $(LDFLAGS) bin/obj/protectedmode.o bin/obj/Drivers/serial.o bin/obj/Drivers/pci.o bin/obj/Misc/cstring.o -o bin/obj/c.bin
 	$(ASM) $(ASMFLAGS) src/boot.asm -o $(OUTFILE)
 	
+Clean:
+	rm -rf bin
+
 Run: Build
 	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga std -global VGA.vgamem_mb=32 -machine q35 -m 1M
