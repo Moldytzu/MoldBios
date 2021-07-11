@@ -1,6 +1,6 @@
 #include "cstring.h"
 
-int inttostr(int num){
+int inttostr(uint32_t num){
     char str[100] = {0};
     char buf[100] = {0};
 	int negative = 0;

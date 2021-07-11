@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "fwcfg.h": "c",
-        "ports.h": "c"
+        "ports.h": "c",
+        "memory.h": "c"
     }
 }
