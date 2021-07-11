@@ -8,7 +8,7 @@ boot:
     ;Init 16-bit segments
     call InitSegments
     
-    ;Copy the GDT outisde ROM mapped memory
+    ;Copy the GDT outisde ROM mapped memory (taken from AtieP's bios)
     mov si, GDT
     mov di, 0x400
     mov cx, GDTEnd - GDT
@@ -22,7 +22,7 @@ boot:
     or al, 1
     mov cr0, eax
 
-    ;Set up the 32-bit segments
+    ;Set up the 32-bit segments (also taken from AtieP's bios)
     mov ax, 0x10
     mov ds, ax
     mov es, ax
@@ -32,7 +32,7 @@ boot:
     mov esp, 0x2000
 
     ;Jump
-    jmp dword 0x08:PMEntry
+    jmp dword 0x08:0xF1000
 
 ;InitSegments
 ;
@@ -41,7 +41,7 @@ boot:
 InitSegments:
     mov ax, cs
     mov ds, ax
-    mov ax, 0
+    xor ax, ax ;save some bytes
     mov es, ax
     ret
 
@@ -59,7 +59,9 @@ GDTDescriptor:
     dw GDTEnd - GDT - 1
     dd 0x400
 
-%include "src/biosmain.asm"
+times 0x1000 - ($ - $$) db 0x00
+
+incbin "bin/obj/c.bin"
     
 BITS 16
 ;Reset vector
@@ -68,5 +70,5 @@ times (0x10000 - 16) - ($ - $$) db 0x00
 ResetVector:
     cli ;disable intrerupts
     cld ;clear directional flag
-    jmp 0xF000:0
+    jmp 0xF000:boot
     times 9 db 0
