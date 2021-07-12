@@ -31,4 +31,5 @@ struct FWCFG_FILE_DIR {
     char FWCFG_FILE[56];
 } __attribute__((__packed__)); //https://github.com/qemu/qemu/blob/master/docs/specs/fw_cfg.txt
 
-void FWCFGWrite(uint16_t selector, void* buffer, uint32_t lenght, uint32_t offset);
+void FWCFGDMATransfer(void* buffer, uint32_t len, uint32_t control);
+int FWCFGLocateFile(const char* file);

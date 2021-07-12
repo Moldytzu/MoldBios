@@ -2,20 +2,17 @@
 
 //I hate endianness
 
-void FWCFGWrite(uint16_t selector, void* buffer, uint32_t lenght, uint32_t offset) {
-    volatile struct FWCFG_DMA DMA;
+void FWCFGDMATransfer(void* buffer, uint32_t len, uint32_t control) {
+    struct FWCFG_DMA dma;
 
-    DMA.Address = 0;
-    DMA.Length = swapendianness32(offset);
-    DMA.Control = swapendianness32(((uint32_t) selector << 16) | CONTROL_SKIP | CONTROL_SELECT); //we're selecting the control signal
-    outd(FWCFG_DMA_PORT + 4,swapendianness32(&DMA)); //sending the address of the DMA struct so it can select the selector
+    if(!len) return; //we return if the len is 0
 
-    while (DMA.Control & ~CONTROL_ERROR); //wait until is done
+    dma.Address = swapendianness64(buffer);
+    dma.Length = swapendianness32(len);
+    dma.Control = swapendianness32(control);
 
-    DMA.Address = swapendianness64(buffer);
-    DMA.Length = swapendianness32(lenght);
-    DMA.Control = swapendianness32(((uint32_t) selector << 16) | CONTROL_WRITE); //we're selecting the write signal
-    outd(FWCFG_DMA_PORT + 4,swapendianness32(&DMA)); //sending the address of the DMA struct so it can write the buffer
+}
 
-    while (DMA.Control & ~CONTROL_ERROR); //wait until is done
+int FWCFGLocateFile(const char* file) {
+
 }
