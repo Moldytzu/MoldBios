@@ -5,7 +5,7 @@ A basic bios written in x86 assembly and C that runs in protected mode for QEMU.
 
 ### [X] Serial communication
 ### [X] Memory
-### [ ] GPU Driver
+### [-] GPU Driver (Working on)
 ### [ ] PS/2
 ### [ ] PCI
 ### [ ] AHCI
