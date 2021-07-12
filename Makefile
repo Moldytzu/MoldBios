@@ -2,7 +2,7 @@ ASM = nasm
 ASMFLAGS = -fbin
 
 CC = gcc
-CFLAGS = -m32 -ffreestanding -static -fno-pic -fno-stack-protector -std=gnu99 -w -O0
+CFLAGS = -m32 -ffreestanding -static -fno-pic -fno-stack-protector -std=gnu99 -w -Os
 
 LD = ld
 LDFLAGS = -nostdlib -static -Tlink.ld
@@ -21,8 +21,10 @@ CBuild: Clean
 	$(CC) $(CFLAGS) -c src/Misc/cstring.c -o bin/obj/Misc/cstring.o
 	$(CC) $(CFLAGS) -c src/Memory/memory.c -o bin/obj/Memory/memory.o
 
-Build: CBuild
 	$(LD) $(LDFLAGS) bin/obj/protectedmode.o bin/obj/Drivers/serial.o bin/obj/Drivers/pci.o bin/obj/Misc/cstring.o bin/obj/Memory/memory.o -o bin/obj/c.bin
+	@ stat -L -c "[Notice] Size of C blob is %s B / 65535 B" bin/obj/c.bin 
+
+Build: CBuild
 	$(ASM) $(ASMFLAGS) src/boot.asm -o $(OUTFILE)
 	
 Clean:

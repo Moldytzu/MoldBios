@@ -1,39 +1,24 @@
 #include "cstring.h"
 
 int inttostr(uint32_t num){
-    char str[100] = {0};
+    volatile char str[100] = {0};
     char buf[100] = {0};
-	int negative = 0;
-	int len = 0, k = 0, i = 0, tmp = 0, n = 0, lenstr = 0;
- 
-	if(num < 0){
-		negative = 1;
-		n = -num;
-	} else {
-		n = num;
-	}
+	int k = 0, tmp = 0;
  
 	do{
-		tmp = n % 10;
+		tmp = num % 10;
 		buf[k++] = tmp + '0';
-		n = n / 10;
-	} while(n != 0);
+		num = num / 10;
+	} while(num != 0);
  
-	len = k;
-	lenstr = len;
- 
+	tmp = k;
 	k = 0;
-	if(1 == negative){
-		str[k++] = '-';
-		lenstr = lenstr + 1;
-	}
  
-	for(i = len - 1; i >= 0; i--){
+	for(int i = tmp - 1; i >= 0; i--){
 		str[k++] = buf[i];
 	}
 	
-	str[lenstr] = '\0';
+	str[tmp] = '\0';
 	
 	return str;
- 
 }

@@ -32,7 +32,7 @@ boot:
     mov esp, 0x2000
 
     ;Jump
-    jmp dword 0x08:0xF1000
+    jmp dword 0x08:CBin
 
 ;InitSegments
 ;
@@ -59,8 +59,9 @@ GDTDescriptor:
     dw GDTEnd - GDT - 1
     dd 0x400
 
-times 0x1000 - ($ - $$) db 0x00
+times 0x60 - ($ - $$) db 0x00
 
+CBin:
 incbin "bin/obj/c.bin"
     
 BITS 16
