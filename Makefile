@@ -34,4 +34,4 @@ Clean:
 	rm -rf bin
 
 Run: Build
-	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga std -global VGA.vgamem_mb=32 -machine q35 -m 16m
+	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -machine q35 -m 16m
