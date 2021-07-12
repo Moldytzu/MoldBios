@@ -2,6 +2,7 @@
 #include "Drivers/pci.h"
 #include "Misc/cstring.h"
 #include "Memory/memory.h"
+#include "Misc/fwcfg.h"
 
 extern void PMEntry() {
     PCIChipset machineChipset = PCIGetChipset();
