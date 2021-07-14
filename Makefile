@@ -5,7 +5,7 @@ ASM = nasm
 ASMFLAGS = -fbin
 
 CC = gcc
-CFLAGS = -m32 -ffreestanding -static -fno-pic -fno-stack-protector -std=gnu99 -w
+CFLAGS = -m32 -ffreestanding -fno-pic -w
 
 LD = ld
 LDFLAGS = -nostdlib -static -T link.ld
@@ -34,4 +34,5 @@ Clean:
 	rm -rf bin
 
 Run: Build
-	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -machine q35 -m 16m
+	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -m 4m -device ramfb
+

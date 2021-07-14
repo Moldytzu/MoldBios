@@ -18,3 +18,11 @@ uint32_t RAMDetect() {
         return xext+16; //because it shows in range 16 MB - 4 GB and the first 16 MB is not calculated
     }  
 }
+
+void* memcpy (void *dest, const void *src, uint32_t len) {
+  char *d = dest;
+  const char *s = src;
+  while (len--)
+    *d++ = *s++;
+  return dest;
+}
