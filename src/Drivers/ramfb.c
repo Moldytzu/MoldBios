@@ -1,5 +1,6 @@
 #include "ramfb.h"
 
+
 int FWCFGLocateFile(char *filename, struct FWCFGFile *info) {
     uint32_t items;
     uint32_t offset = 0;
@@ -45,20 +46,34 @@ void FWCFGWrite(uint16_t selector, const void *buf, uint32_t len, uint32_t offse
     while (command.Control & ~FWCFGCommand_ERROR);
 }
 
-void RAMFBInit(int width, int height, int bpp) {
+void RAMFBPutPix(int x,int y, uint32_t clr) {
+	*(uint32_t*)(x*4 + (800*y *4) + VideoMemory) = clr;
+}
+
+void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
+	for(int i = x; i < (x+w); i++)
+		for(int j = y; j < (y+h); j++)
+			RAMFBPutPix(i,j,clr);
+}
+
+void RAMFBPutChar(char* bmp) {
+
+}
+
+void RAMFBInit(int width, int height) {	
     struct FWCFGFile file;
     FWCFGLocateFile("etc/ramfb", &file);
     if (file.Selector) {
     	SerialPutStr("MoldBios: Detected RAMFB\n\r");
     	SerialPutStr("MoldBios: Needed RAM for the framebuffer is ");
-    	SerialPutStr(inttostr((width * (bpp / 8) * height)/1024/1024));
+    	SerialPutStr(inttostr((width * (32 / 8) * height)/1024/1024));
     	SerialPutStr(" MB\n\r");
         
         struct RAMFBStruct RAMFB;
         RAMFB.Width = swapendianness32(width);
         RAMFB.Height = swapendianness32(height);
-        RAMFB.Stride = swapendianness32(width * (bpp / 8));
-        RAMFB.Address = swapendianness64(0x100000);
+        RAMFB.Stride = swapendianness32(width * (32 / 8));
+        RAMFB.Address = swapendianness64(VideoMemory);
         RAMFB.Flags = 0;
         RAMFB.FOURCC = swapendianness32(0x34325241);
         FWCFGWrite(file.Selector, &RAMFB, sizeof(RAMFB), 0);

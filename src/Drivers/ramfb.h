@@ -15,6 +15,8 @@
 #define FWCFGCommand_SELECT (1 << 3)
 #define FWCFGCommand_WRITE  (1 << 4)
 
+#define VideoMemory 0x100000
+
 struct FWCFGFile {
     uint32_t Size;
     uint16_t Selector;
@@ -37,4 +39,7 @@ struct RAMFBStruct {
     uint32_t Stride;
 } __attribute__((packed)) ;
 
-void RAMFBInit(int width, int height, int bpp);
+void RAMFBInit(int width, int height);
+void RAMFBPutPix(int x,int y, uint32_t clr);
+void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr);
+void RAMFBPutChar(char* bmp);

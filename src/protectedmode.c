@@ -17,7 +17,7 @@ extern void PMEntry() {
     SerialPutStr(inttostr(RAMDetect()));
     SerialPutStr(" MB\n\r");
     
-    RAMFBInit(640, 480, 32);
+    RAMFBInit(800, 600);
 
     while(1) {
     	asm ("hlt");
