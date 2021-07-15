@@ -150,9 +150,6 @@ void RAMFBPutChar(int x, int y, char chr) {
 			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
 			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
 			break;
-		case 'o':
-			RAMFBPutRect(x,y,7,7,0xFFFFFF);
-			break;
 		case 'p':
 			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
 			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
@@ -239,10 +236,7 @@ void RAMFBPutChar(int x, int y, char chr) {
 
 void RAMFBPutStr(int x, int y, char* str) {
 	for(int i = 0; str[i] != 0; i++) {
-		char a = str[i];
-		if(str[i] >= 'A' && str[i] <= 'Z')
-			a = a + 32;
-		RAMFBPutChar(x,y,a);
+		RAMFBPutChar(x,y,toupper(str[i]));
 		x+=10;
 	}
 }
@@ -251,10 +245,10 @@ void RAMFBInit(int width, int height) {
     struct FWCFGFile file;
     FWCFGLocateFile("etc/ramfb", &file); //get the ramfb file
     if (file.Selector) { //if exists use it
-    	SerialPutStr("MoldBios: Detected RAMFB\n\r");
+    	SerialPutStr("MoldBios: Detected RAMFB\n");
     	SerialPutStr("MoldBios: Needed RAM for the framebuffer is ");
     	SerialPutStr(inttostr((width * (32 / 8) * height)/1024/1024));
-    	SerialPutStr(" MB\n\r");
+    	SerialPutStr(" MB\n");
         
         struct RAMFBStruct RAMFB = {0};
         RAMFB.Width = swapendianness32(width);
@@ -264,9 +258,9 @@ void RAMFBInit(int width, int height) {
         RAMFB.FOURCC = swapendianness32(0x34325241);
         FWCFGWrite(file.Selector, &RAMFB, sizeof(RAMFB), 0); //copy the struct
         
-        SerialPutStr("MoldBios: Initialized RAMFB\n\r");
+        SerialPutStr("MoldBios: Initialized RAMFB\n");
     } else {
-    	SerialPutStr("MoldBios: Cannot detect RAMFB\n\r");
+    	SerialPutStr("MoldBios: Cannot detect RAMFB\n");
     	while(1) {
     		asm ("hlt");
     	}

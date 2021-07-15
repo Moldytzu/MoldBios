@@ -7,21 +7,17 @@ extern void PMEntry() {
     PCIChipset machineChipset = PCIGetChipset();
 
     if(machineChipset.Device == Q35_DEVICE && machineChipset.Vendor == Q35_VENDOR)
-        SerialPutStr("MoldBios: Q35 chipset detected!\n\r");
+        SerialPutStr("MoldBios: Q35 chipset detected!\n");
     else if(machineChipset.Device == I440FX_DEVICE && machineChipset.Vendor == I440FX_VENDOR)
-        SerialPutStr("MoldBios: i440FX chipset detected!\n\r");
+        SerialPutStr("MoldBios: i440FX chipset detected!\n");
     else
-        SerialPutStr("MoldBios: Unknown chipset! Continue with caution.\n\r");
+        SerialPutStr("MoldBios: Unknown chipset! Continue with caution.\n");
 
     SerialPutStr("MoldBios: Detected RAM ");
     SerialPutStr(inttostr(RAMDetect()));
-    SerialPutStr(" MB\n\r");
+    SerialPutStr(" MB\n");
     
     RAMFBInit(800, 600);
-  
-    RAMFBPutRectF(0,0,800,600,0);
-
-	RAMFBPutRect(100,100,50,50,0xFFFFFF);
 
 	RAMFBPutStr(0,0,"abcdefghijklmnopqrstuvwxyz1234567890");
 	

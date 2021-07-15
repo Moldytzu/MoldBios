@@ -6,7 +6,10 @@ ORG 0xF0000 ;bios block location
 
 boot:
     ;Init 16-bit segments
-    call InitSegments
+    mov ax, cs
+    mov ds, ax
+    xor ax, ax ;save some bytes
+    mov es, ax
     
     ;Copy the GDT outisde ROM mapped memory (taken from AtieP's bios)
     mov si, GDT
@@ -33,17 +36,6 @@ boot:
 
     ;Jump
     jmp dword 0x08:CBin
-
-;InitSegments
-;
-;Inits the segments
-;
-InitSegments:
-    mov ax, cs
-    mov ds, ax
-    xor ax, ax ;save some bytes
-    mov es, ax
-    ret
 
 ;Data
     
@@ -72,4 +64,4 @@ ResetVector:
     cli ;disable intrerupts
     cld ;clear directional flag
     jmp 0xF000:boot
-    times 9 db 0
+    times 0x10000 - ($ - $$) db 0x00

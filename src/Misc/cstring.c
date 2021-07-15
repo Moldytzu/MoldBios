@@ -35,3 +35,9 @@ int inttostr(uint32_t num){
 	
 	return str;
 }
+
+char toupper(char chr) {
+	if(chr >= 'A' && chr <= 'Z')
+		return chr + 32;
+	return chr;
+}

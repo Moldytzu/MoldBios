@@ -1,5 +1,5 @@
 # MoldBios
-A basic bios written in x86 assembly and C that runs in protected mode for QEMU.
+A basic bios-like firmware written in x86 assembly and C that runs in protected mode for QEMU.
 
 ## Roadmap
 

@@ -10,7 +10,7 @@ uint32_t RAMDetect() {
     if (xext == 0) {
         if(ext != 0)
             return ext+1; //because it shows in range 1 MB - 16 MB and the first MB is not calculated
-        SerialPutStr("\n\rMoldBios: Memory detected is lower than 1 MB! Halting\n\r");
+        SerialPutStr("\nMoldBios: Memory detected is lower than 1 MB! Halting\n");
         while(1){
             asm ("hlt");
         };    
