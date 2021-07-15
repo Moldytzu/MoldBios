@@ -250,6 +250,10 @@ void RAMFBPutChar(int x, int y, char chr) {
 
 void RAMFBPutStr(char* str) {
 	for(int i = 0; str[i] != 0; i++) {
+		if (CursorX+10 >= ScreenW) {
+			CursorY+=10*FontScaling;
+			CursorX = 0;
+		}
 		if (str[i] == '\n') {
 			CursorY+=10*FontScaling;
 			CursorX = 0;
@@ -280,7 +284,7 @@ void RAMFBInit(int width, int height) {
         CursorX = 0;
         CursorY = 0;
         ScreenW = width;
-        ScreenW = height;
+        ScreenH = height;
         
         SerialPutStr("MoldBios: Initialized RAMFB\n");
     } else {
