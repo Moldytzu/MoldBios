@@ -18,6 +18,14 @@ extern void PMEntry() {
     SerialPutStr(" MB\n\r");
     
     RAMFBInit(800, 600);
+  
+    RAMFBPutRectF(0,0,800,600,0);
+
+	RAMFBPutRect(100,100,50,50,0xFFFFFF);
+
+	RAMFBPutStr(0,0,"abcdefghijklmnopqrstuvwxyz1234567890");
+	
+	RAMFBPutStr(0,10,"Moldbios");
 
     while(1) {
     	asm ("hlt");

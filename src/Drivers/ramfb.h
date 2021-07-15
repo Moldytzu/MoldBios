@@ -42,4 +42,6 @@ struct RAMFBStruct {
 void RAMFBInit(int width, int height);
 void RAMFBPutPix(int x,int y, uint32_t clr);
 void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr);
-void RAMFBPutChar(char* bmp);
+void RAMFBPutRectF(int x,int y, int w, int h, uint32_t clr);
+void RAMFBPutChar(int x, int y, char chr);
+void RAMFBPutStr(int x, int y, char* str);

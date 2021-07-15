@@ -1,6 +1,5 @@
 #include "ramfb.h"
 
-
 int FWCFGLocateFile(char *filename, struct FWCFGFile *info) {
     uint32_t items;
     uint32_t offset = 0;
@@ -50,33 +49,220 @@ void RAMFBPutPix(int x,int y, uint32_t clr) {
 	*(uint32_t*)(x*4 + (800*y *4) + VideoMemory) = clr;
 }
 
-void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
+void RAMFBPutRectF(int x,int y, int w, int h, uint32_t clr) {
 	for(int i = x; i < (x+w); i++)
 		for(int j = y; j < (y+h); j++)
 			RAMFBPutPix(i,j,clr);
 }
 
-void RAMFBPutChar(char* bmp) {
+void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
+	RAMFBPutRectF(x,y,w,1,clr);
+	RAMFBPutRectF(x,y+h,w,1,clr);
+	RAMFBPutRectF(x,y,1,h,clr);
+	RAMFBPutRectF(x+w,y,1,h,clr);
+}
 
+void RAMFBPutChar(int x, int y, char chr) {
+	//8x8 chars
+	switch(chr) {
+		case 'a':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			break;
+		case 'b':
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+5,y,1,5,0xFFFFFF);
+			RAMFBPutRectF(x,y,5,1,0xFFFFFF);
+			RAMFBPutRectF(x+8,y+4,1,4,0xFFFFFF);
+			break;
+		case 'c':
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			break;
+		case 'd':
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,5,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,5,1,0xFFFFFF);
+			
+			for(int i=5;i<=7;i++)
+				RAMFBPutPix(x+i,y+i-4,0xFFFFFF);
+			
+			for(int i=7,j=4;i>=5;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case 'e':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			break;
+		case 'f':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			break;
+		case 'g':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+4,y+4,4,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+8,y+4,1,4,0xFFFFFF);
+			break;
+		case 'h':
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			break;
+		case 'i':
+			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
+			break;
+		case 'j':
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,1,4,0xFFFFFF);
+			break;
+		case 'k':
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			
+			for(int i=4,j=0;i>=1;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			
+			for(int i=1;i<=4;i++)
+				RAMFBPutPix(x+i,y+i+3,0xFFFFFF);
+			break;
+		case 'l':
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			break;
+		case 'm':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			break;
+		case 'n':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			break;
+		case 'o':
+			RAMFBPutRect(x,y,7,7,0xFFFFFF);
+			break;
+		case 'p':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
+			break;
+		case 'q':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,4,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
+			break;
+		case 'r':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
+			for(int i = 8;i>=5;i--)
+				RAMFBPutPix(x+i,y+i-1,0xFFFFFF);
+			break;
+		case 's':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			for(int i =1;i<=3;i++)
+				RAMFBPutPix(x,y+i,0xFFFFFF);
+			RAMFBPutRectF(x+1,y+4,6,1,0xFFFFFF);
+			for(int i =5;i<=7;i++)
+				RAMFBPutPix(x+7,y+i,0xFFFFFF);
+			break;
+		case 't':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
+			break;
+		case 'u':
+			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			break;
+		case 'v':
+			RAMFBPutPix(x,y+1,0xFFFFFF);
+			
+			for(int i = 1;i<=4;i++)
+				RAMFBPutPix(x+i,y+i+1,0xFFFFFF);
+			
+			for(int i=8,j=1;i>=5;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case 'w':
+			RAMFBPutPix(x,y+1,0xFFFFFF);
+			
+			for(int i = 1;i<=4;i++)
+				RAMFBPutPix(x+i,y+i+1,0xFFFFFF);
+			
+			for(int i=8,j=1;i>=5;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case 'x':
+			for(int i = 1;i<=7;i++)
+				RAMFBPutPix(x+i,y+i,0xFFFFFF);
+			
+			for(int i=7,j=1;i>=1;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case 'y':
+			for(int i = 1;i<=5;i++)
+				RAMFBPutPix(x+i,y+i,0xFFFFFF);
+			RAMFBPutRectF(x+5,y,1,8,0xFFFFFF);
+			break;
+		case 'z':
+			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			for(int i=7,j=1;i>1;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		default:
+			RAMFBPutRect(x,y,7,7,0xFFFFFF);
+			break;
+			
+		//todo: add support for numbers
+	}
+
+}
+
+void RAMFBPutStr(int x, int y, char* str) {
+	for(int i = 0; str[i] != 0; i++) {
+		char a = str[i];
+		if(str[i] >= 'A' && str[i] <= 'Z')
+			a = a + 32;
+		RAMFBPutChar(x,y,a);
+		x+=10;
+	}
 }
 
 void RAMFBInit(int width, int height) {	
     struct FWCFGFile file;
-    FWCFGLocateFile("etc/ramfb", &file);
-    if (file.Selector) {
+    FWCFGLocateFile("etc/ramfb", &file); //get the ramfb file
+    if (file.Selector) { //if exists use it
     	SerialPutStr("MoldBios: Detected RAMFB\n\r");
     	SerialPutStr("MoldBios: Needed RAM for the framebuffer is ");
     	SerialPutStr(inttostr((width * (32 / 8) * height)/1024/1024));
     	SerialPutStr(" MB\n\r");
         
-        struct RAMFBStruct RAMFB;
+        struct RAMFBStruct RAMFB = {0};
         RAMFB.Width = swapendianness32(width);
         RAMFB.Height = swapendianness32(height);
         RAMFB.Stride = swapendianness32(width * (32 / 8));
         RAMFB.Address = swapendianness64(VideoMemory);
-        RAMFB.Flags = 0;
         RAMFB.FOURCC = swapendianness32(0x34325241);
-        FWCFGWrite(file.Selector, &RAMFB, sizeof(RAMFB), 0);
+        FWCFGWrite(file.Selector, &RAMFB, sizeof(RAMFB), 0); //copy the struct
         
         SerialPutStr("MoldBios: Initialized RAMFB\n\r");
     } else {
