@@ -17,6 +17,11 @@
 
 #define VideoMemory 0x100000
 
+#define CursorX *((uint32_t*)0x1000)
+#define CursorY *((uint32_t*)0x1004)
+#define ScreenW *((uint16_t*)0x1008)
+#define ScreenH *((uint32_t*)0x100A)
+
 struct FWCFGFile {
     uint32_t Size;
     uint16_t Selector;
@@ -44,4 +49,4 @@ void RAMFBPutPix(int x,int y, uint32_t clr);
 void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr);
 void RAMFBPutRectF(int x,int y, int w, int h, uint32_t clr);
 void RAMFBPutChar(int x, int y, char chr);
-void RAMFBPutStr(int x, int y, char* str);
+void RAMFBPutStr(char* str);

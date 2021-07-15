@@ -2,6 +2,7 @@
 #include "Drivers/pci.h"
 #include "Misc/cstring.h"
 #include "Memory/memory.h"
+#include "Drivers/ramfb.h"
 
 extern void PMEntry() {
     PCIChipset machineChipset = PCIGetChipset();
@@ -17,11 +18,12 @@ extern void PMEntry() {
     SerialPutStr(inttostr(RAMDetect()));
     SerialPutStr(" MB\n");
     
-    RAMFBInit(800, 600);
-
-	RAMFBPutStr(0,0,"abcdefghijklmnopqrstuvwxyz1234567890");
+    RAMFBInit(800, 600); 
 	
-	RAMFBPutStr(0,10,"Moldbios");
+	RAMFBPutStr("MoldBios: Initialized RAMFB!\n");
+	RAMFBPutStr("MoldBios: Detected RAM ");
+	RAMFBPutStr(inttostr(RAMDetect()));
+	RAMFBPutStr(" MB");
 
     while(1) {
     	asm ("hlt");

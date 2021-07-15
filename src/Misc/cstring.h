@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include "../Memory/memory.h"
 
 int inttostr(uint32_t num);
 int strlen(char* str);

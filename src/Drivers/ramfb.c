@@ -1,5 +1,8 @@
 #include "ramfb.h"
 
+uint32_t cursorX = 0;
+uint32_t cursorY = 0;
+
 int FWCFGLocateFile(char *filename, struct FWCFGFile *info) {
     uint32_t items;
     uint32_t offset = 0;
@@ -61,6 +64,7 @@ void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
 	RAMFBPutRectF(x,y,1,h,clr);
 	RAMFBPutRectF(x+w,y,1,h,clr);
 }
+
 
 void RAMFBPutChar(int x, int y, char chr) {
 	//8x8 chars
@@ -225,6 +229,16 @@ void RAMFBPutChar(int x, int y, char chr) {
 			for(int i=7,j=1;i>1;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
+		case ' ':
+			break;
+		case '!':
+			RAMFBPutRectF(x+4,y,1,5,0xFFFFFF);
+			RAMFBPutPix(x+4,y+7,0xFFFFFF);
+			break;
+		case ':':
+			RAMFBPutPix(x+4,y+6,0xFFFFFF);
+			RAMFBPutPix(x+4,y+2,0xFFFFFF);
+			break;
 		default:
 			RAMFBPutRect(x,y,7,7,0xFFFFFF);
 			break;
@@ -234,10 +248,15 @@ void RAMFBPutChar(int x, int y, char chr) {
 
 }
 
-void RAMFBPutStr(int x, int y, char* str) {
+void RAMFBPutStr(char* str) {
 	for(int i = 0; str[i] != 0; i++) {
-		RAMFBPutChar(x,y,toupper(str[i]));
-		x+=10;
+		if (str[i] == '\n') {
+			CursorY+=10;
+			CursorX = 0;
+		} else {
+			RAMFBPutChar(CursorX,CursorY,toupper(str[i]));
+			CursorX+=10;
+		}
 	}
 }
 
@@ -257,6 +276,11 @@ void RAMFBInit(int width, int height) {
         RAMFB.Address = swapendianness64(VideoMemory);
         RAMFB.FOURCC = swapendianness32(0x34325241);
         FWCFGWrite(file.Selector, &RAMFB, sizeof(RAMFB), 0); //copy the struct
+        
+        CursorX = 0;
+        CursorY = 0;
+        ScreenW = width;
+        ScreenW = height;
         
         SerialPutStr("MoldBios: Initialized RAMFB\n");
     } else {
