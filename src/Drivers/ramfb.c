@@ -65,185 +65,185 @@ void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
 	RAMFBPutRectF(x+w,y,1,h,clr);
 }
 
-
+#define FontScaling 1.10 //110%
 void RAMFBPutChar(int x, int y, char chr) {
 	//8x8 chars
 	switch(chr) {
 		case 'a':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'b':
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+5,y,1,5,0xFFFFFF);
-			RAMFBPutRectF(x,y,5,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y+4,1,4,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+5*FontScaling,y,1*FontScaling,5*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,5*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
 			break;
 		case 'c':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
 			break;
 		case 'd':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,5,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,5,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,5*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,5*FontScaling,1*FontScaling,0xFFFFFF);
 			
-			for(int i=5;i<=7;i++)
-				RAMFBPutPix(x+i,y+i-4,0xFFFFFF);
+			for(int i=5*FontScaling;i<=7*FontScaling;i++)
+				RAMFBPutPix(x+i,y+i-4*FontScaling,0xFFFFFF);
 			
-			for(int i=7,j=4;i>=5;i--,j++)
+			for(int i=7*FontScaling,j=4*FontScaling;i>=5*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
 		case 'e':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
 			break;
 		case 'f':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'g':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y+4,4,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y+4,1,4,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+4*FontScaling,y+4*FontScaling,4*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
 			break;
 		case 'h':
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'i':
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'j':
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,1,4,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
 			break;
 		case 'k':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			
-			for(int i=4,j=0;i>=1;i--,j++)
+			for(int i=4*FontScaling,j=0;i>=1*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			
-			for(int i=1;i<=4;i++)
-				RAMFBPutPix(x+i,y+i+3,0xFFFFFF);
+			for(int i=1*FontScaling;i<=4*FontScaling;i++)
+				RAMFBPutPix(x+i,y+i+3*FontScaling,0xFFFFFF);
 			break;
 		case 'l':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
 			break;
 		case 'm':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'n':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'p':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,4*FontScaling,0xFFFFFF);
 			break;
 		case 'q':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,4*FontScaling,0xFFFFFF);
 			break;
 		case 'r':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
-			for(int i = 8;i>=5;i--)
-				RAMFBPutPix(x+i,y+i-1,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,4*FontScaling,0xFFFFFF);
+			for(int i = 8*FontScaling;i>=5*FontScaling;i--)
+				RAMFBPutPix(x+i,y+i-1*FontScaling,0xFFFFFF);
 			break;
 		case 's':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			for(int i =1;i<=3;i++)
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			for(int i =1*FontScaling;i<=3*FontScaling;i++)
 				RAMFBPutPix(x,y+i,0xFFFFFF);
-			RAMFBPutRectF(x+1,y+4,6,1,0xFFFFFF);
-			for(int i =5;i<=7;i++)
-				RAMFBPutPix(x+7,y+i,0xFFFFFF);
+			RAMFBPutRectF(x+1*FontScaling,y+4*FontScaling,6*FontScaling,1*FontScaling,0xFFFFFF);
+			for(int i =5*FontScaling;i<=7*FontScaling;i++)
+				RAMFBPutPix(x+7*FontScaling,y+i,0xFFFFFF);
 			break;
 		case 't':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'u':
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'v':
-			RAMFBPutPix(x,y+1,0xFFFFFF);
+			RAMFBPutPix(x,y+1*FontScaling,0xFFFFFF);
 			
-			for(int i = 1;i<=4;i++)
-				RAMFBPutPix(x+i,y+i+1,0xFFFFFF);
+			for(int i = 1*FontScaling;i<=4*FontScaling;i++)
+				RAMFBPutPix(x+i,y+i+1*FontScaling,0xFFFFFF);
 			
-			for(int i=8,j=1;i>=5;i--,j++)
+			for(int i=8*FontScaling,j=1*FontScaling;i>=5*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
 		case 'w':
-			RAMFBPutPix(x,y+1,0xFFFFFF);
+			RAMFBPutPix(x,y+1*FontScaling,0xFFFFFF);
 			
-			for(int i = 1;i<=4;i++)
-				RAMFBPutPix(x+i,y+i+1,0xFFFFFF);
+			for(int i = 1*FontScaling;i<=4*FontScaling;i++)
+				RAMFBPutPix(x+i,y+i+1*FontScaling,0xFFFFFF);
 			
-			for(int i=8,j=1;i>=5;i--,j++)
+			for(int i=8*FontScaling,j=1*FontScaling;i>=5*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
 		case 'x':
-			for(int i = 1;i<=7;i++)
+			for(int i = 1*FontScaling;i<=7*FontScaling;i++)
 				RAMFBPutPix(x+i,y+i,0xFFFFFF);
 			
-			for(int i=7,j=1;i>=1;i--,j++)
+			for(int i=7*FontScaling,j=1*FontScaling;i>=1*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
 		case 'y':
-			for(int i = 1;i<=5;i++)
+			for(int i = 1*FontScaling;i<=5*FontScaling;i++)
 				RAMFBPutPix(x+i,y+i,0xFFFFFF);
-			RAMFBPutRectF(x+5,y,1,8,0xFFFFFF);
+			RAMFBPutRectF(x+5*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
 			break;
 		case 'z':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			for(int i=7,j=1;i>1;i--,j++)
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			for(int i=7*FontScaling,j=1*FontScaling;i>1*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
 		case ' ':
 			break;
 		case '!':
-			RAMFBPutRectF(x+4,y,1,5,0xFFFFFF);
-			RAMFBPutPix(x+4,y+7,0xFFFFFF);
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,5*FontScaling,0xFFFFFF);
+			RAMFBPutPix(x+4*FontScaling,y+7*FontScaling,0xFFFFFF);
 			break;
 		case ':':
-			RAMFBPutPix(x+4,y+6,0xFFFFFF);
-			RAMFBPutPix(x+4,y+2,0xFFFFFF);
+			RAMFBPutPix(x+4*FontScaling,y+6*FontScaling,0xFFFFFF);
+			RAMFBPutPix(x+4*FontScaling,y+2*FontScaling,0xFFFFFF);
 			break;
 		default:
-			RAMFBPutRect(x,y,7,7,0xFFFFFF);
+			RAMFBPutRect(x,y,7*FontScaling,7*FontScaling,0xFFFFFF);
 			break;
 			
-		//todo: add support for numbers
+		//todo: add support for numbers and more special characters
 	}
 
 }
@@ -251,11 +251,11 @@ void RAMFBPutChar(int x, int y, char chr) {
 void RAMFBPutStr(char* str) {
 	for(int i = 0; str[i] != 0; i++) {
 		if (str[i] == '\n') {
-			CursorY+=10;
+			CursorY+=10*FontScaling;
 			CursorX = 0;
 		} else {
 			RAMFBPutChar(CursorX,CursorY,toupper(str[i]));
-			CursorX+=10;
+			CursorX+=10*FontScaling;
 		}
 	}
 }

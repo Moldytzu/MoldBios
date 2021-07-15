@@ -23,7 +23,8 @@ extern void PMEntry() {
 	RAMFBPutStr("MoldBios: Initialized RAMFB!\n");
 	RAMFBPutStr("MoldBios: Detected RAM ");
 	RAMFBPutStr(inttostr(RAMDetect()));
-	RAMFBPutStr(" MB");
+	RAMFBPutStr(" MB\n");
+	
 
     while(1) {
     	asm ("hlt");
