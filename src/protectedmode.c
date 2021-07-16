@@ -4,9 +4,12 @@
 #include "Memory/memory.h"
 #include "Drivers/ramfb.h"
 #include "Drivers/ps2.h"
+#include "Drivers/floppy.h"
 
 extern void PMEntry() {
 	RAMFBInit(800, 600);
+
+	RAMFBPutStr("MoldBios: Detecting hardware!\n");
 
     PCIChipset machineChipset = PCIGetChipset();
 
@@ -17,9 +20,15 @@ extern void PMEntry() {
     else
         RAMFBPutStr("MoldBios: Unknown chipset! Continue with caution.\n");
 
-    RAMFBPutStr("MoldBios: Detected RAM ");
+    RAMFBPutStr("MoldBios: Detected RAM: ");
     RAMFBPutStr(inttostr(RAMDetect()));
     RAMFBPutStr(" MB\n");
+    
+    RAMFBPutStr("MoldBios: Detected floppy drives: ");
+    RAMFBPutStr(inttostr(FloppyGetDrives()));
+    RAMFBPutStr("\n");
+
+	RAMFBPutStr("MoldBios: Detection complete!\n");
     
     PS2Init();
     
