@@ -3,6 +3,7 @@
 #include "Misc/cstring.h"
 #include "Memory/memory.h"
 #include "Drivers/ramfb.h"
+#include "Drivers/ps2.h"
 
 extern void PMEntry() {
 	RAMFBInit(800, 600);
@@ -19,7 +20,9 @@ extern void PMEntry() {
     RAMFBPutStr("MoldBios: Detected RAM ");
     RAMFBPutStr(inttostr(RAMDetect()));
     RAMFBPutStr(" MB\n");
-    RAMFBPutStr("abcdefghijklmnopqrstuvwxyz 1234567890");
+    
+    PS2Init();
+    
     while(1) {
     	asm ("hlt");
     }

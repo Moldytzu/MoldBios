@@ -5,12 +5,11 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 
 ### [X] Serial communication
 ### [X] Memory
-### [-] GPU Driver (Working on)
-### [ ] PS/2
-### [ ] PCI
+### [X] GPU Driver 
+### [X] PS/2
+### [-] Floppy (Working on)
+### [ ] Boot
 ### [ ] AHCI
-### [ ] Floppy
-### [ ] Booting from floppy, hard drive or cd-rom
 
 ## Notes
 This project is based off of https://pitust.dev/biosdev/step1 and https://github.com/AtieP/LakeBIOS

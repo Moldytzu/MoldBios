@@ -302,6 +302,14 @@ void RAMFBPutChar(int x, int y, char chr) {
 			RAMFBPutPix(x+4*FontScaling,y+6*FontScaling,0xFFFFFF);
 			RAMFBPutPix(x+4*FontScaling,y+2*FontScaling,0xFFFFFF);
 			break;
+		case '/':
+			for(int i=7*FontScaling,j=1*FontScaling;i>=1*FontScaling;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case '\\':
+			for(int i = 1*FontScaling;i<=7*FontScaling;i++)
+				RAMFBPutPix(x+i,y+i,0xFFFFFF);
+			break;
 		default:
 			RAMFBPutRect(x,y,7*FontScaling,7*FontScaling,0xFFFFFF);
 			break;
