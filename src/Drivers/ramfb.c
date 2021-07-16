@@ -65,7 +65,7 @@ void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
 	RAMFBPutRectF(x+w,y,1,h,clr);
 }
 
-#define FontScaling 1.10 //110%
+#define FontScaling 1 //110%
 void RAMFBPutChar(int x, int y, char chr) {
 	//8x8 chars
 	switch(chr) {
@@ -229,6 +229,69 @@ void RAMFBPutChar(int x, int y, char chr) {
 			for(int i=7*FontScaling,j=1*FontScaling;i>1*FontScaling;i--,j++)
 				RAMFBPutPix(x+i,y+j,0xFFFFFF);
 			break;
+		case '0':
+			RAMFBPutRect(x,y,7*FontScaling,7*FontScaling,0xFFFFFF);
+			RAMFBPutPix(x+4*FontScaling,y+3*FontScaling,0xFFFFFF);
+			break;
+		case '1':
+			RAMFBPutRectF(x,y,4*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '2':
+			RAMFBPutRectF(x,y,7*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+1*FontScaling,y+7*FontScaling,7*FontScaling,1*FontScaling,0xFFFFFF);
+			for(int i=7*FontScaling,j=1*FontScaling;i>1*FontScaling;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case '3':
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+8*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '4':
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			for(int i=4*FontScaling,j=0*FontScaling;i>0*FontScaling;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			break;
+		case '5':
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,7*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+7*FontScaling,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '6':
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,7*FontScaling,1*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+7*FontScaling,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '7':
+			for(int i=7*FontScaling,j=1*FontScaling;i>=1*FontScaling;i--,j++)
+				RAMFBPutPix(x+i,y+j,0xFFFFFF);
+			RAMFBPutRectF(x,y,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '8':
+			RAMFBPutRect(x,y,7*FontScaling,7*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '9':
+			RAMFBPutRect(x,y,7*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x+7*FontScaling,y+4*FontScaling,1*FontScaling,4*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+7*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '+':
+			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,8*FontScaling,0xFFFFFF);
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
+		case '-':
+			RAMFBPutRectF(x,y+4*FontScaling,8*FontScaling,1*FontScaling,0xFFFFFF);
+			break;
 		case ' ':
 			break;
 		case '!':
@@ -243,7 +306,7 @@ void RAMFBPutChar(int x, int y, char chr) {
 			RAMFBPutRect(x,y,7*FontScaling,7*FontScaling,0xFFFFFF);
 			break;
 			
-		//todo: add support for numbers and more special characters
+		//todo: add support more special characters
 	}
 
 }
