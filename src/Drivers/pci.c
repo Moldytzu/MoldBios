@@ -14,3 +14,7 @@ PCIChipset PCIGetChipset() {
 
     return chipset;
 }
+
+PCIDevice PCIFindDevice(uint8_t cls, uint8_t subcls) {
+	
+}

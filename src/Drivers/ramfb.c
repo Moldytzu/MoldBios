@@ -294,6 +294,9 @@ void RAMFBPutChar(int x, int y, char chr) {
 			break;
 		case ' ':
 			break;
+		case '.':
+			RAMFBPutPix(x+4*FontScaling,y+7*FontScaling,0xFFFFFF);
+			break;
 		case '!':
 			RAMFBPutRectF(x+4*FontScaling,y,1*FontScaling,5*FontScaling,0xFFFFFF);
 			RAMFBPutPix(x+4*FontScaling,y+7*FontScaling,0xFFFFFF);

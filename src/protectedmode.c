@@ -4,7 +4,7 @@
 #include "Memory/memory.h"
 #include "Drivers/ramfb.h"
 #include "Drivers/ps2.h"
-#include "Drivers/floppy.h"
+#include "Drivers/ahci.h"
 
 extern void PMEntry() {
 	RAMFBInit(800, 600);
@@ -17,16 +17,24 @@ extern void PMEntry() {
         RAMFBPutStr("MoldBios: Q35 chipset detected!\n");
     else if(machineChipset.Device == I440FX_DEVICE && machineChipset.Vendor == I440FX_VENDOR)
         RAMFBPutStr("MoldBios: i440FX chipset detected!\n");
-    else
-        RAMFBPutStr("MoldBios: Unknown chipset! Continue with caution.\n");
+    else if(machineChipset.Device == MICROVM_VENDOR_DEVICE && machineChipset.Vendor == MICROVM_VENDOR_DEVICE)
+    	RAMFBPutStr("MoldBios: MicroVM chipset detected!\n");
+    else {
+        RAMFBPutStr("MoldBios: Unknown chipset! Vendor: ");
+        RAMFBPutStr(inttostr(machineChipset.Vendor));
+        RAMFBPutStr("  Device: ");
+        RAMFBPutStr(inttostr(machineChipset.Device));
+        RAMFBPutStr("\n");
+        while(1);
+    }
 
     RAMFBPutStr("MoldBios: Detected RAM: ");
     RAMFBPutStr(inttostr(RAMDetect()));
     RAMFBPutStr(" MB\n");
     
-    RAMFBPutStr("MoldBios: Detected floppy drives: ");
-    RAMFBPutStr(inttostr(FloppyGetDrives()));
-    RAMFBPutStr("\n");
+    RAMFBPutStr("MoldBios: AHCI controller: ");
+    RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
+
 
 	RAMFBPutStr("MoldBios: Detection complete!\n");
     
