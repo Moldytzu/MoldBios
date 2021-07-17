@@ -1,4 +1,5 @@
 #include "floppy.h"
+#define delay 0xFFFFFF
 
 uint8_t FloppyGetDrives() {
 	uint8_t drives = CMOSGetRegister(0x10); // Result is in this form: first nibble is the slave floppy type and the second nibble is the master floppy type
@@ -48,10 +49,10 @@ void FloppyCalibrate(uint8_t drive) {
 	for(int i = 0; i < 10;i++) {
 		FloppyDoCommand(FLOPPY_RECALIBRATE_COMMAND);
 		FloppyDoCommand(drive);
-		for(int j = 0; j < 0xFFFF; j++);
+		for(int j = 0; j < delay; j++);
 		int cylinder,status;
 		FloppySenseIntrerrupt(&cylinder,&status);
-        if(!cylinder) {
+        if(!cylinder) { //if it's on cylinder 0 we succeded
             FloppyStopMotor();
             return;
         }
@@ -67,12 +68,32 @@ void FloppyInit(uint8_t drive) {
 	RAMFBPutStr("MoldBios: Initializing floppy!\n");
 	outb(FLOPPY_BASE_PORT + FLOPPY_DOR_REG, 0x00); //Disable controller
 	outb(FLOPPY_BASE_PORT + FLOPPY_DOR_REG, 0x0C); //Enable controller
-	for(int j = 0; j < 0xFFFF; j++);
-	FloppyFlushIntrerrupt();
+	for(int j = 0; j < delay; j++);
+	for(int i = 0; i <=4;i++)
+			FloppyFlushIntrerrupt();
 	outb(FLOPPY_BASE_PORT + FLOPPY_CCR_REG, 0x00); //Set transfer speed
 	FloppyDoCommand(FLOPPY_SPECIFY_COMMAND);
 	FloppyDoCommand(0xDF);
 	FloppyDoCommand(0x02);
 	FloppyCalibrate(drive);
 	RAMFBPutStr("MoldBios: Initialized floppy!\n");
+}
+
+void FloppySeek(uint16_t cylinder, uint16_t head) {
+	FloppyStartMotor();
+	
+	for(int i = 0; i < 10;i++) {
+		FloppyDoCommand(FLOPPY_SEEK_COMMAND);
+		FloppyDoCommand(head<<2);
+		FloppyDoCommand(cylinder);
+		
+		for(int j = 0; j < delay; j++);
+		int cylinder,status;
+		
+		FloppySenseIntrerrupt(&cylinder,&status);
+        if(cylinder) { //if it's on the cylinder we specified then we return
+            FloppyStopMotor();
+            return;
+        }
+	}
 }

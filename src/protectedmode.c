@@ -48,8 +48,11 @@ extern void PMEntry() {
     if(PS2Detect())
     	PS2Init();
     	
-    if(FloppyGetDrives())
+    if(FloppyGetDrives()) {
     	FloppyInit(FLOPPY_DRIVE_MASTER);
+    	FloppyRead(0);
+    	RAMFBPutStr(FLOPPY_DMA_ADDRESS);
+    }
     
     while(1) {
     	asm ("hlt");

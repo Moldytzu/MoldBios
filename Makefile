@@ -5,7 +5,7 @@ ASM = nasm
 ASMFLAGS = -fbin
 
 CC = gcc
-CFLAGS = -m32 -ffreestanding -fno-pic -w #note to self: don't add compiler optimizations ever again
+CFLAGS = -m32 -ffreestanding -fno-pic -w -Os
 
 LD = ld
 LDFLAGS = -nostdlib -static -T link.ld
@@ -34,4 +34,4 @@ Clean:
 	rm -rf bin
 
 Run: Build
-	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -m 2G -drive file=drive.img,if=floppy,format=raw -machine q35
+	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -m 2G -drive file=drive.img,if=floppy,format=raw
