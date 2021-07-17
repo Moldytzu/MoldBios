@@ -35,10 +35,13 @@ extern void PMEntry() {
     RAMFBPutStr("MoldBios: AHCI controller: ");
     RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
 
+    RAMFBPutStr("MoldBios: PS/2 controller: ");
+    RAMFBPutStr(PS2Detect() ? "Present\n" : "Not present\n");
 
 	RAMFBPutStr("MoldBios: Detection complete!\n");
     
-    PS2Init();
+    if(PS2Detect())
+    	PS2Init();
     
     while(1) {
     	asm ("hlt");

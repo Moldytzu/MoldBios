@@ -7,3 +7,4 @@
 #define PS2_COMMAND_PORT 0x64
 
 void PS2Init();
+uint8_t PS2Detect();

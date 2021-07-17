@@ -8,6 +8,16 @@ void PS2WaitInput() {
 	while (inb(PS2_STATUS_PORT) & 2); //Wait for bit 2 to be set (Input buffer status)
 }
 
+uint8_t PS2Detect() {
+	//Detect if PS/2 is present by self testing it
+	outb(PS2_COMMAND_PORT,0xAA); //Self test
+	PS2WaitResponse();
+	if(inb(PS2_DATA_PORT) != 0x55) { //Check if the test failed
+		return 0;
+	}
+	return 1;
+}
+
 void PS2Init() {
 	RAMFBPutStr("MoldBios: Initializing PS/2 controller!\n");
 	
