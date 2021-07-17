@@ -5,6 +5,7 @@
 #include "Drivers/ramfb.h"
 #include "Drivers/ps2.h"
 #include "Drivers/ahci.h"
+#include "Drivers/floppy.h"
 
 extern void PMEntry() {
 	RAMFBInit(800, 600);
@@ -38,10 +39,17 @@ extern void PMEntry() {
     RAMFBPutStr("MoldBios: PS/2 controller: ");
     RAMFBPutStr(PS2Detect() ? "Present\n" : "Not present\n");
 
+    RAMFBPutStr("MoldBios: Floppy drives: ");
+    RAMFBPutStr(inttostr(FloppyGetDrives()));
+    RAMFBPutStr("\n");
+
 	RAMFBPutStr("MoldBios: Detection complete!\n");
     
     if(PS2Detect())
     	PS2Init();
+    	
+    if(FloppyGetDrives())
+    	FloppyInit(FLOPPY_DRIVE_MASTER);
     
     while(1) {
     	asm ("hlt");

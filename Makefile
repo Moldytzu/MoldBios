@@ -34,5 +34,4 @@ Clean:
 	rm -rf bin
 
 Run: Build
-	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -m 2G -drive file=drive.img,format=raw -machine q35
-
+	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -m 2G -drive file=drive.img,if=floppy,format=raw -machine q35
