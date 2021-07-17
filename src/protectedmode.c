@@ -7,6 +7,7 @@
 #include "Drivers/ahci.h"
 #include "Drivers/floppy.h"
 #include "IO/speaker.h"
+#include "Misc/cpuid.h"
 
 extern void PMEntry() {
 	RAMFBInit(800, 600);
@@ -46,6 +47,10 @@ extern void PMEntry() {
     RAMFBPutStr("MoldBios: RAM: ");
     RAMFBPutStr(inttostr(RAMDetect()));
     RAMFBPutStr(" MB\n");
+    
+    RAMFBPutStr("MoldBios: CPU: ");
+    RAMFBPutStr(CPUIDGetBrand());
+    RAMFBPutStr("\n");
     
     RAMFBPutStr("MoldBios: AHCI controller: ");
     RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
