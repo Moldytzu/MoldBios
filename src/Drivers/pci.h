@@ -5,19 +5,14 @@
 #define PCI_CFG_ADDRESS 0xCF8
 #define PCI_CFG_VENDOR 0x00
 #define PCI_CFG_DEVICE 0x02
+#define PCI_CFG_INTERFACE 0x09
+#define PCI_CFG_SUBCLASS 0x0A
+#define PCI_CFG_CLASS 0x0B
 
 typedef struct {
     uint16_t Vendor;
     uint16_t Device;
 } PCIChipset;
-
-typedef struct {
-	uint16_t Bus;
-	uint16_t Slot;
-	uint16_t Function;
-	uint16_t Class;
-	uint16_t Subclass;
-} PCIDevice;
 
 #define Q35_VENDOR 0x8086
 #define Q35_DEVICE 0x29C0
@@ -26,5 +21,5 @@ typedef struct {
 #define MICROVM_VENDOR_DEVICE 0xFFFF
 
 uint16_t PCIReadWord(uint8_t bus, uint8_t slot, uint8_t function, uint8_t offset);
-PCIDevice PCIFindDevice(uint8_t cls, uint8_t subcls);
+uint8_t PCIFindDevice(uint8_t cls, uint8_t subcls, uint8_t programif);
 PCIChipset PCIGetChipset();
