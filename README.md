@@ -1,5 +1,5 @@
 # MoldBios
-A basic bios-like firmware written in x86 assembly and C that runs in protected mode for QEMU.
+A basic bios-like firmware written in x86 assembly and C that runs in protected mode for QEMU and Pentium 2+ virtual machines
 
 ## Roadmap
 
@@ -10,7 +10,6 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 ### [-] Floppy (Working on)
 ### [-] AHCI (Working on)
 ### [ ] Boot
-
 
 ## Notes
 This project is based off of https://pitust.dev/biosdev/step1 and https://github.com/AtieP/LakeBIOS

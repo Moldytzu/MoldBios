@@ -26,3 +26,9 @@ void* memcpy (void *dest, const void *src, uint32_t len) {
     *d++ = *s++;
   return dest;
 }
+
+void memset (void* dest, int val, uint32_t len) {
+  while (len-- > 0)
+    *((uint8_t*)dest++) = val;
+  return dest;
+}

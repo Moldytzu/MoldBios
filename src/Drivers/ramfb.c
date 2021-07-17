@@ -360,6 +360,8 @@ void RAMFBInit(int width, int height) {
         ScreenW = width;
         ScreenH = height;
         
+        memset(VideoMemory,0,VideoMemory);
+        
         SerialPutStr("MoldBios: Initialized RAMFB\n");
     } else {
     	SerialPutStr("MoldBios: Cannot detect RAMFB\n");
