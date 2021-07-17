@@ -8,12 +8,17 @@ uint32_t RAMDetect() {
     uint32_t xext = (((((uint16_t) CMOSGetRegister(0x35) << 8) | CMOSGetRegister(0x34)) * 65536)/1024/1024);
 
     if (xext == 0) {
-        if(ext != 0)
+        if(ext != 0 && ext > 1)
             return ext+1; //because it shows in range 1 MB - 16 MB and the first MB is not calculated
-        SerialPutStr("\nMoldBios: Memory detected is lower than 1 MB! Halting\n");
-        while(1){
-            asm ("hlt");
-        };    
+        SerialPutStr("\nMoldBios: Low memory error!\n");
+        
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+        
+        asm volatile ("hlt");  
     } else {
         return xext+16; //because it shows in range 16 MB - 4 GB and the first 16 MB is not calculated
     }  

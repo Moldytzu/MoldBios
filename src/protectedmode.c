@@ -6,6 +6,7 @@
 #include "Drivers/ps2.h"
 #include "Drivers/ahci.h"
 #include "Drivers/floppy.h"
+#include "IO/speaker.h"
 
 extern void PMEntry() {
 	RAMFBInit(800, 600);
@@ -31,10 +32,15 @@ extern void PMEntry() {
         RAMFBPutStr("Q35\n");
     else if(machineChipset.Device == I440FX_DEVICE && machineChipset.Vendor == I440FX_VENDOR)
         RAMFBPutStr("i440FX\n");
-    else if(machineChipset.Device == MICROVM_VENDOR_DEVICE && machineChipset.Vendor == MICROVM_VENDOR_DEVICE)
-    	RAMFBPutStr("MicroVM\n");
-    else {
-        RAMFBPutStr("Unknown\n");
+    else if(machineChipset.Device == MICROVM_VENDOR_DEVICE && machineChipset.Vendor == MICROVM_VENDOR_DEVICE){
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+    	while(1);
+    } else {
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+        PCSpeakerBeep();
+        while(1);
     }
 
     RAMFBPutStr("MoldBios: RAM: ");
@@ -59,6 +65,8 @@ extern void PMEntry() {
     if(FloppyGetDrives()) {
     	FloppyInit(FLOPPY_DRIVE_MASTER);
     }
+    
+    PCSpeakerBeep();
     
     while(1) {
     	asm ("hlt");

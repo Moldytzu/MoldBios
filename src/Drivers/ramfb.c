@@ -1,4 +1,5 @@
 #include "ramfb.h"
+#include "../IO/speaker.h"
 
 uint32_t cursorX = 0;
 uint32_t cursorY = 0;
@@ -365,8 +366,12 @@ void RAMFBInit(int width, int height) {
         SerialPutStr("MoldBios: Initialized RAMFB\n");
     } else {
     	SerialPutStr("MoldBios: Cannot detect RAMFB\n");
-    	while(1) {
-    		asm ("hlt");
-    	}
+    	
+    	PCSpeakerBeep();
+    	PCSpeakerBeep();
+    	PCSpeakerBeep();
+    	PCSpeakerBeep();
+    	
+    	asm volatile ("hlt");
     }
 }
