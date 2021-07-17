@@ -34,4 +34,4 @@ Clean:
 	rm -rf bin
 
 Run: Build
-	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -m 8M -drive file=drive.img,if=floppy,format=raw -soundhw pcspk -machine microvm
+	qemu-system-x86_64 -bios $(OUTFILE) -serial stdio -vga none -device ramfb -m 256M -drive file=drive.img,if=floppy,format=raw -soundhw pcspk -machine q35

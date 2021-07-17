@@ -1,6 +1,3 @@
-#pragma GCC push_options
-#pragma GCC optimize ("O0")
-
 #include "cstring.h"
 
 int strlen(char* str) {
@@ -44,5 +41,3 @@ char toupper(char chr) {
 		return chr + 32;
 	return chr;
 }
-
-#pragma GCC pop_options

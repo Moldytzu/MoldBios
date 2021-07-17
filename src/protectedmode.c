@@ -1,6 +1,5 @@
 #include "Drivers/serial.h"
 #include "Drivers/pci.h"
-#include "Misc/cstring.h"
 #include "Memory/memory.h"
 #include "Drivers/ramfb.h"
 #include "Drivers/ps2.h"
@@ -10,7 +9,10 @@
 #include "Misc/cpuid.h"
 
 extern void PMEntry() {
+    SerialPutStr("MoldBios: Jumped in protected mode!\n");
 	RAMFBInit(800, 600);
+    RAMFBPutStr("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:/\n");
+
 
 	RAMFBPutStr(inttostr(CMOSGetHour()));
 	RAMFBPutStr(":");
