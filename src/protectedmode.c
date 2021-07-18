@@ -11,8 +11,6 @@
 extern void PMEntry() {
     SerialPutStr("MoldBios: Jumped in protected mode!\n");
 	RAMFBInit(800, 600);
-    RAMFBPutStr("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:/\n");
-
 
 	RAMFBPutStr(inttostr(CMOSGetHour()));
 	RAMFBPutStr(":");
@@ -22,7 +20,7 @@ extern void PMEntry() {
 	RAMFBPutStr("/");
 	RAMFBPutStr(inttostr(CMOSGetMonth()));
 	RAMFBPutStr("/");
-	RAMFBPutStr(inttostr(CMOSGetYear()));
+	RAMFBPutStr(inttostr(CMOSGetYear()+2000));
 	RAMFBPutStr("\n");
 
 	RAMFBPutStr("MoldBios: Detecting hardware...\n");
