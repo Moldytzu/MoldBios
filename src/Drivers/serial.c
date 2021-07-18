@@ -9,5 +9,5 @@ void SerialPutStr(char* str) {
 }
 
 void SerialPutChar(char ch) {
-    asm volatile ( "outb %0, %1" : : "a"(ch), "Nd"(COM1) );
+    outb(COM1, ch);
 }
