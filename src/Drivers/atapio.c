@@ -18,3 +18,7 @@ char* ATAReadLBA(uint32_t lba) {
 
     return ATA_BUFFER;
 }
+
+int ATADetect() {
+    return PCIFindDeviceW(0x1, 0x1);
+}

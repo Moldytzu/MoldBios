@@ -26,6 +26,14 @@ extern void PMEntry() {
 
 	RAMFBPutStr("MoldBios: Detecting hardware...\n");
 
+    RAMFBPutStr("MoldBios: CPU: ");
+    RAMFBPutStr(CPUIDGetBrand());
+    RAMFBPutStr("\n");
+
+    RAMFBPutStr("MoldBios: RAM: ");
+    RAMFBPutStr(inttostr(RAMDetect()));
+    RAMFBPutStr(" MB\n");
+    
 	RAMFBPutStr("MoldBios: Chipset: ");
 
     if(IS_Q35)
@@ -43,19 +51,11 @@ extern void PMEntry() {
         while(1);
     }
 
-    RAMFBPutStr("MoldBios: RAM: ");
-    RAMFBPutStr(inttostr(RAMDetect()));
-    RAMFBPutStr(" MB\n");
-    
-    RAMFBPutStr("MoldBios: CPU: ");
-    RAMFBPutStr(CPUIDGetBrand());
-    RAMFBPutStr("\n");
-    
     RAMFBPutStr("MoldBios: AHCI controller: ");
     RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
 
-    RAMFBPutStr("MoldBios: ATA PIO mode: ");
-    RAMFBPutStr(IS_I440FX ? "Present\n" : "Not present\n");
+    RAMFBPutStr("MoldBios: IDE controller: ");
+    RAMFBPutStr(ATADetect() ? "Present\n" : "Not present\n");
 
     RAMFBPutStr("MoldBios: PS/2 controller: ");
     RAMFBPutStr(PS2Detect() ? "Present\n" : "Not present\n");
@@ -77,7 +77,7 @@ extern void PMEntry() {
 
     PCSpeakerBeep();
     
-    if(IS_I440FX) {
+    if(ATADetect()) {
         RAMFBPutStr("Reading first sector on the hard disk:\n");
         RAMFBPutStr(ATAReadLBA(0));
     }

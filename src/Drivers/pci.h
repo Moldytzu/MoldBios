@@ -26,4 +26,5 @@ typedef struct {
 
 uint16_t PCIReadWord(uint8_t bus, uint8_t slot, uint8_t function, uint8_t offset);
 uint8_t PCIFindDevice(uint8_t cls, uint8_t subcls, uint8_t programif);
+uint8_t PCIFindDeviceW(uint8_t cls, uint8_t subcls);
 PCIChipset PCIGetChipset();

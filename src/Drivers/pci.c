@@ -32,3 +32,15 @@ uint8_t PCIFindDevice(uint8_t cls, uint8_t subcls, uint8_t programif) {
     }
     return 0;
 }
+
+uint8_t PCIFindDeviceW(uint8_t cls, uint8_t subcls) {
+    for (int bus = 0; bus < 256; bus++) {
+        for (int slot = 0; slot < 32; slot++) {
+       		for (int function = 0; function < 8; function++) {
+       			 if(PCIReadByte(bus, slot, function, PCI_CFG_CLASS) == cls && PCIReadByte(bus, slot, function, PCI_CFG_SUBCLASS) == subcls)
+       			 	return 1;
+        	}
+        }
+    }
+    return 0;
+}
