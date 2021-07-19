@@ -8,7 +8,7 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 ### [X] GPU Driver 
 ### [X] PS/2
 ### [-] Storage Medium (Working on)
-### [ ] Boot
+### [X] Boot
 
 ## Notes
 This project is based off of https://pitust.dev/biosdev/step1 and https://github.com/AtieP/LakeBIOS

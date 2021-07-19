@@ -78,8 +78,10 @@ extern void PMEntry() {
     PCSpeakerBeep();
     
     if(ATADetect()) {
-        RAMFBPutStr("Reading first sector on the hard disk:\n");
-        RAMFBPutStr(ATAReadLBA(0));
+        RAMFBPutStr("Booting from hard disk\n");
+        memcpy(0x300100,ATAReadLBA(0),512);
+        void (*boot)() = (void (*)())0x300100;
+        boot();
     }
 
     while(1) {
