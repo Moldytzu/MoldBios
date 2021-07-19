@@ -7,8 +7,7 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 ### [X] Memory
 ### [X] GPU Driver 
 ### [X] PS/2
-### [-] Floppy (Working on)
-### [-] AHCI (Working on)
+### [-] Storage Medium (Working on)
 ### [ ] Boot
 
 ## Notes

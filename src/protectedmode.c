@@ -7,6 +7,7 @@
 #include "Drivers/floppy.h"
 #include "IO/speaker.h"
 #include "Misc/cpuid.h"
+#include "Drivers/atapio.h"
 
 extern void PMEntry() {
     SerialPutStr("MoldBios: Jumped in protected mode!\n");
@@ -27,13 +28,11 @@ extern void PMEntry() {
 
 	RAMFBPutStr("MoldBios: Chipset: ");
 
-    PCIChipset machineChipset = PCIGetChipset();
-
-    if(machineChipset.Device == Q35_DEVICE && machineChipset.Vendor == Q35_VENDOR)
+    if(IS_Q35)
         RAMFBPutStr("Q35\n");
-    else if(machineChipset.Device == I440FX_DEVICE && machineChipset.Vendor == I440FX_VENDOR)
+    else if(IS_I440FX)
         RAMFBPutStr("i440FX\n");
-    else if(machineChipset.Device == MICROVM_VENDOR_DEVICE && machineChipset.Vendor == MICROVM_VENDOR_DEVICE){
+    else if(IS_MICROVM){
         PCSpeakerBeep();
         PCSpeakerBeep();
     	while(1);
@@ -55,6 +54,9 @@ extern void PMEntry() {
     RAMFBPutStr("MoldBios: AHCI controller: ");
     RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
 
+    RAMFBPutStr("MoldBios: ATA PIO mode: ");
+    RAMFBPutStr(IS_I440FX ? "Present\n" : "Not present\n");
+
     RAMFBPutStr("MoldBios: PS/2 controller: ");
     RAMFBPutStr(PS2Detect() ? "Present\n" : "Not present\n");
 
@@ -71,8 +73,15 @@ extern void PMEntry() {
     	FloppyInit(FLOPPY_DRIVE_MASTER);
     }
     
+    RAMFBPutStr("MoldBios: Power On Self Test passed!\n");
+
     PCSpeakerBeep();
     
+    if(IS_I440FX) {
+        RAMFBPutStr("Reading first sector on the hard disk:\n");
+        RAMFBPutStr(ATAReadLBA(0));
+    }
+
     while(1) {
     	asm ("hlt");
     }
