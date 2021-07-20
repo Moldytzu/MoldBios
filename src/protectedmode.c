@@ -9,6 +9,7 @@
 #include "Misc/cpuid.h"
 #include "Drivers/atapio.h"
 #include "IO/eis.h"
+#include "Misc/moldboot.h"
 
 extern void PMEntry() {
     SerialPutStr("MoldBios: Jumped in protected mode!\n");
@@ -95,8 +96,13 @@ extern void PMEntry() {
         for(int i = 0;i<8;i++)
             memcpy(0x300000+(i*0x200),ATAReadLBA(i),512);
         
-        void (*boot)() = (void (*)())0x300000;
-        boot();
+        struct MoldBootDescriptor mbdesc;
+
+        mbdesc.signature[0] = 'M';
+        mbdesc.signature[1] = 'B';
+
+        void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300000;
+        boot(&mbdesc);
     }
 
     while(1) {

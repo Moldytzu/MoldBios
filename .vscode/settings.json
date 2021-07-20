@@ -2,6 +2,7 @@
     "files.associations": {
         "fwcfg.h": "c",
         "ports.h": "c",
-        "memory.h": "c"
+        "memory.h": "c",
+        "moldlib.h": "c"
     }
 }
