@@ -1,3 +1,6 @@
+ASM = nasm
+ASMFLAGS = -fbin
+
 CC = gcc
 CFLAGS = -m32 -ffreestanding -fno-pic -w -Os
 
@@ -18,7 +21,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 Link: $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS) -o $(OUTFILE)
+	$(LD) $(LDFLAGS) $(OBJS) -o c.bin
+	$(ASM) $(ASMFLAGS) entry.asm -o $(OUTFILE)
 
 Build: Clean Link
 	

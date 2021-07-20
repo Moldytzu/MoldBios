@@ -73,15 +73,18 @@ extern void PMEntry() {
     	FloppyInit(FLOPPY_DRIVE_MASTER);
     }
     
-    RAMFBPutStr("MoldBios: Power On Self Test passed!\n");
+    RAMFBPutStr("MoldBios: Power On Self Test passed!\n\n");
 
     PCSpeakerBeep();
     
     if(ATADetect()) {
-        RAMFBPutStr("Booting from hard disk\n");
+        RAMFBPutStr("Booting from IDE hard disk\n");
+        //Copying first sector (0.5 kb) on the hard disk into memory
         memcpy(0x300100,ATAReadLBA(0),512);
-        void (*boot)() = (void (*)())0x300100;
-        boot();
+        void (*boot)() = (void (*)())0x300101;
+        if(*((uint8_t*)0x300100) == 0xFF)
+            boot();
+        RAMFBPutStr("Boot signature check failed\n");
     }
 
     while(1) {
