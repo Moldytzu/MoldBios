@@ -6,6 +6,8 @@ static void SerialPutStr(char* str) {
         asm volatile("out %0, %1" :: "a"(str[i]), "Nd"(0x3F8));
 }
 
+#define MB_T_PUTSTR 0
+
 struct __attribute__((packed)) MoldBootEntry {
     void* Address;
     uint32_t Type;

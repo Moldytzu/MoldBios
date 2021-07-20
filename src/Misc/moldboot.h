@@ -1,6 +1,8 @@
 #pragma once
 #include <stdint.h>
 
+#define MB_T_PUTSTR 0
+
 struct __attribute__((packed)) MoldBootEntry {
     void* Address;
     uint32_t Type;

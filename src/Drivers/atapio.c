@@ -11,10 +11,10 @@ char* ATAReadLBA(uint32_t lba) {
     while (inb(ATA_MASTER + 7) & 128); //wait for busy flag
 
     for (int i = 0; i < 256; i++) {
-        uint16_t val = inw(ATA_MASTER); //get value
-        *((uint8_t*)ATA_BUFFER + i * 2) = val & 0xff;
-        *((uint8_t*)ATA_BUFFER + i * 2 + 1) = val >> 8;
+        *((uint16_t*)ATA_BUFFER + i) = inw(ATA_MASTER);
     }
+
+    
 
     return ATA_BUFFER;
 }

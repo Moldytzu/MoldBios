@@ -9,8 +9,8 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 ### [X] PS/2
 ### [-] Storage Medium (Working on)
 ### [X] Boot
-### [ ] Custom Boot Protocol
-### [-] Enabling extended instruction sets
+### [-] Custom Boot Protocol (Working on)
+### [-] Enabling extended instruction sets (Working on)
 
 
 ## Notes
