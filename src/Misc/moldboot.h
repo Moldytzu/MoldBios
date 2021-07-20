@@ -5,7 +5,7 @@
 
 struct __attribute__((packed)) MoldBootEntry {
     void* Address;
-    uint32_t Type;
+    uint8_t Type;
 };
 
 struct __attribute__((packed)) MoldBootHardware {
@@ -18,7 +18,7 @@ struct __attribute__((packed)) MoldBootHardware {
 
 struct __attribute__((packed)) MoldBootDescriptor {
     uint8_t signature[2]; //Always MB
-    uint32_t numEntries;
+    uint8_t numEntries;
     struct MoldBootHardware hw;
     struct MoldBootEntry entries[32];
 };

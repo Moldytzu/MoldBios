@@ -10,12 +10,9 @@ char* ATAReadLBA(uint32_t lba) {
     outb(ATA_MASTER + 7, ATA_READ_SECTORS_COMMAND); //send command
     while (inb(ATA_MASTER + 7) & 128); //wait for busy flag
 
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < 256; i++)
         *((uint16_t*)ATA_BUFFER + i) = inw(ATA_MASTER);
-    }
-
-    
-
+        
     return ATA_BUFFER;
 }
 
