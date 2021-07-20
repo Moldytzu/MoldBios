@@ -79,8 +79,10 @@ extern void PMEntry() {
     
     if(ATADetect()) {
         RAMFBPutStr("Booting from IDE hard disk\n");
-        //Copying first sector (0.5 kb) on the hard disk into memory
-        memcpy(0x300100,ATAReadLBA(0),512);
+        //Copying first 8 sectors (4 kb) from the hard disk into memory
+        for(int i = 0;i<8;i++)
+            memcpy(0x300100+(i*0x200),ATAReadLBA(i),512);
+
         void (*boot)() = (void (*)())0x300101;
         if(*((uint8_t*)0x300100) == 0xFF)
             boot();

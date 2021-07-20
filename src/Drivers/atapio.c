@@ -8,7 +8,7 @@ char* ATAReadLBA(uint32_t lba) {
     outb(ATA_MASTER + 4, lba >> 8); //lba
     outb(ATA_MASTER + 5, lba >> 16); //lba
     outb(ATA_MASTER + 7, ATA_READ_SECTORS_COMMAND); //send command
-    while (!(inb(ATA_MASTER + 7) & 8)); //wait for busy flag
+    while (inb(ATA_MASTER + 7) & 128); //wait for busy flag
 
     for (int i = 0; i < 256; i++) {
         uint16_t val = inw(ATA_MASTER); //get value
