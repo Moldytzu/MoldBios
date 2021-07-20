@@ -8,6 +8,7 @@
 #include "IO/speaker.h"
 #include "Misc/cpuid.h"
 #include "Drivers/atapio.h"
+#include "IO/eis.h"
 
 extern void PMEntry() {
     SerialPutStr("MoldBios: Jumped in protected mode!\n");
@@ -51,6 +52,15 @@ extern void PMEntry() {
         while(1);
     }
 
+    RAMFBPutStr("MoldBios: CPUID: ");
+    RAMFBPutStr(CPUIDDetect() ? "Supported\n" : "Not supported\n");
+
+    RAMFBPutStr("MoldBios: x87 FPU: ");
+    RAMFBPutStr(FPUDetect() ? "Present\n" : "Not present\n");
+
+    RAMFBPutStr("MoldBios: SSE: ");
+    RAMFBPutStr(SSEDetect() ? "Supported\n" : "Not supported\n");
+
     RAMFBPutStr("MoldBios: AHCI controller: ");
     RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
 
@@ -69,9 +79,11 @@ extern void PMEntry() {
     if(PS2Detect())
     	PS2Init();
     	
-    if(FloppyGetDrives()) {
+    if(FloppyGetDrives())
     	FloppyInit(FLOPPY_DRIVE_MASTER);
-    }
+
+    if(FPUDetect())
+        FPUInit();
     
     RAMFBPutStr("MoldBios: Power On Self Test passed!\n\n");
 

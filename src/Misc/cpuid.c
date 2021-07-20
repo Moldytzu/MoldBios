@@ -1,7 +1,6 @@
 #include "cpuid.h"
 
-void _cpuid(uint32_t reg, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
-{
+void _cpuid(uint32_t reg, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx) {
     __asm__ volatile("cpuid"
         : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
         : "0" (reg));
@@ -15,4 +14,9 @@ char* CPUIDGetBrand() {
 	_cpuid(0x80000004, (uint32_t *)(name + 32), (uint32_t *)(name + 36), (uint32_t *)(name + 40), (uint32_t *)(name + 44));
 	name[47] = 0;
 	return name;
+}
+
+int CPUIDDetect() {
+	char* brand = CPUIDGetBrand();
+	return brand[0] != 0;
 }

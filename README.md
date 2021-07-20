@@ -9,6 +9,9 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 ### [X] PS/2
 ### [-] Storage Medium (Working on)
 ### [X] Boot
+### [ ] Custom Boot Protocol
+### [-] Enabling extended instruction sets
+
 
 ## Notes
 This project is based off of https://pitust.dev/biosdev/step1 and https://github.com/AtieP/LakeBIOS
