@@ -93,8 +93,9 @@ extern void PMEntry() {
     if(ATADetect()) {
         RAMFBPutStr("Booting from IDE hard disk\n");
         //Copying first 8 sectors (4 kb) from the hard disk into memory
-        for(int i = 0;i<8;i++)
+        for(int i = 0;i<8;i++){
             memcpy(0x300000+(i*0x200),ATAReadLBA(i),512);
+        }
         
         struct MoldBootDescriptor mbdesc;
 

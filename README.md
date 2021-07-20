@@ -17,4 +17,4 @@ A basic bios-like firmware written in x86 assembly and C that runs in protected 
 This project is based off of https://pitust.dev/biosdev/step1 and https://github.com/AtieP/LakeBIOS
 
 ## Building
-First run the prepare script and then run "make Run" to build and run QEMU with MoldBios.
+First run "./prepare" to download the needed packages and then run "./build.sh" to build and run MoldBios under QEMU.

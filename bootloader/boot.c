@@ -6,9 +6,12 @@ void BEntry(struct MoldBootDescriptor* mbdesc) {
 
     for(int i = 0;i<mbdesc->numEntries;i++){
         if(mbdesc->entries[i].Type == 0){
-            ((void (*)(char*))mbdesc->entries[i].Address)("Hello from bootloader");
+            ((void (*)(char*))mbdesc->entries[i].Address)("Hello from bootloader in RAMFB");
         }
     }
+
+    SerialPutStr("Hello from the bootloader in serial console\n\r");
+
 
     while(1);
 }
