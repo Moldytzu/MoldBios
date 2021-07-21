@@ -1,5 +1,6 @@
 #include "ramfb.h"
 #include "../IO/speaker.h"
+#include "../Misc/bmpfont.h"
 
 uint32_t cursorX = 0;
 uint32_t cursorY = 0;
@@ -67,300 +68,27 @@ void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr) {
 }
 
 void RAMFBPutChar(int x, int y, char chr) {
-	//8x8 chars
-	switch(chr) {
-		case 'a':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			break;
-		case 'b':
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+5,y,1,5,0xFFFFFF);
-			RAMFBPutRectF(x,y,5,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y+4,1,4,0xFFFFFF);
-			break;
-		case 'c':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case 'd':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,5,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,5,1,0xFFFFFF);
-			
-			for(int i=5;i<=7;i++)
-				RAMFBPutPix(x+i,y+i-4,0xFFFFFF);
-			
-			for(int i=7,j=4;i>=5;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			break;
-		case 'e':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case 'f':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			break;
-		case 'g':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y+4,4,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y+4,1,4,0xFFFFFF);
-			break;
-		case 'h':
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			break;
-		case 'i':
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			break;
-		case 'j':
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,1,4,0xFFFFFF);
-			break;
-		case 'k':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			
-			for(int i=4,j=0;i>=1;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			
-			for(int i=1;i<=4;i++)
-				RAMFBPutPix(x+i,y+i+3,0xFFFFFF);
-			break;
-		case 'l':
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case 'm':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			break;
-		case 'n':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			break;
-		case 'p':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
-			break;
-		case 'q':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
-			break;
-		case 'r':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,4,0xFFFFFF);
-			for(int i = 8;i>=5;i--)
-				RAMFBPutPix(x+i,y+i-1,0xFFFFFF);
-			break;
-		case 's':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			for(int i =1;i<=3;i++)
-				RAMFBPutPix(x,y+i,0xFFFFFF);
-			RAMFBPutRectF(x+1,y+4,6,1,0xFFFFFF);
-			for(int i =5;i<=7;i++)
-				RAMFBPutPix(x+7,y+i,0xFFFFFF);
-			break;
-		case 't':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			break;
-		case 'u':
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,8,0xFFFFFF);
-			break;
-		case 'v':
-			RAMFBPutPix(x,y+1,0xFFFFFF);
-			
-			for(int i = 1;i<=4;i++){
-				RAMFBPutPix(x+i,y+i+1,0xFFFFFF);
-                RAMFBPutPix(x+i-1,y+i+1,0xFFFFFF);
-			}
-			
-			for(int i=8,j=1;i>=5;i--,j++){
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-				RAMFBPutPix(x+i-1,y+j,0xFFFFFF);
-			}
-			break;
-		case 'w':
-			RAMFBPutPix(x,y+1,0xFFFFFF);
-			
-			for(int i = 1;i<=4;i++){
-				RAMFBPutPix(x+i,y+i+1,0xFFFFFF);
-                RAMFBPutPix(x+i-1,y+i+1,0xFFFFFF);
-			}
-			
-			for(int i=8,j=1;i>=5;i--,j++){
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-				RAMFBPutPix(x+i-1,y+j,0xFFFFFF);
-			}
-
-			for(int i = 1;i<=4;i++){
-				RAMFBPutPix(x+i+8,y+i+1,0xFFFFFF);
-                RAMFBPutPix(x+i-1+8,y+i+1,0xFFFFFF);
-			}
-			
-			for(int i=8,j=1;i>=5;i--,j++){
-				RAMFBPutPix(x+i+8,y+j,0xFFFFFF);
-				RAMFBPutPix(x+i-1+8,y+j,0xFFFFFF);
-			}
-			CursorX+=8;
-		
-			break;
-		case 'x':
-			for(int i = 0;i<=7;i++){
-				RAMFBPutPix(x+i,y+i,0xFFFFFF);
-				RAMFBPutPix(x+i-1,y+i,0xFFFFFF);
-			}
-			
-			for(int i=7,j=0;i>=0;i--,j++){
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-				RAMFBPutPix(x+i-1,y+j,0xFFFFFF);
-			}
-			break;
-		case 'y':
-			for(int i = 1;i<=5;i++)
-				RAMFBPutPix(x+i,y+i,0xFFFFFF);
-			RAMFBPutRectF(x+5,y,1,6,0xFFFFFF);
-			RAMFBPutRectF(x+2,y+7,2,1,0xFFFFFF);
-			RAMFBPutPix(x+4,y+6,0xFFFFFF);
-			RAMFBPutPix(x+1,y,0xFFFFFF);
-			break;
-		case 'z':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			for(int i=7,j=1;i>1;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			break;
-		case '0':
-			RAMFBPutRect(x,y,7,7,0xFFFFFF);
-			RAMFBPutPix(x+4,y+3,0xFFFFFF);
-			break;
-		case '1':
-			RAMFBPutRectF(x,y,4,1,0xFFFFFF);
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case '2':
-			RAMFBPutRectF(x,y,7,1,0xFFFFFF);
-			RAMFBPutRectF(x+1,y+7,7,1,0xFFFFFF);
-			for(int i=7,j=1;i>1;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			break;
-		case '3':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			RAMFBPutRectF(x+8,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case '4':
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			for(int i=4,j=0;i>0;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			break;
-		case '5':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,7,1,0xFFFFFF);
-			RAMFBPutRectF(x+7,y+4,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case '6':
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			RAMFBPutRectF(x,y,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,7,1,0xFFFFFF);
-			RAMFBPutRectF(x+7,y+4,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case '7':
-			for(int i=7,j=1;i>=1;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			RAMFBPutRectF(x,y,8,1,0xFFFFFF);
-			break;
-		case '8':
-			RAMFBPutRect(x,y,7,7,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			break;
-		case '9':
-			RAMFBPutRect(x,y,7,4,0xFFFFFF);
-			RAMFBPutRectF(x+7,y+4,1,4,0xFFFFFF);
-			RAMFBPutRectF(x,y+7,8,1,0xFFFFFF);
-			break;
-		case '+':
-			RAMFBPutRectF(x+4,y,1,8,0xFFFFFF);
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			break;
-		case '-':
-			RAMFBPutRectF(x,y+4,8,1,0xFFFFFF);
-			break;
-		case ' ':
-			break;
-		case '.':
-			RAMFBPutPix(x+4,y+7,0xFFFFFF);
-			break;
-		case '!':
-			RAMFBPutRectF(x+4,y,1,5,0xFFFFFF);
-			RAMFBPutPix(x+4,y+7,0xFFFFFF);
-			break;
-		case ':':
-			RAMFBPutPix(x+4,y+6,0xFFFFFF);
-			RAMFBPutPix(x+4,y+2,0xFFFFFF);
-			break;
-		case '/':
-			for(int i=7,j=1;i>=1;i--,j++)
-				RAMFBPutPix(x+i,y+j,0xFFFFFF);
-			break;
-		case '\\':
-			for(int i = 1;i<=7;i++)
-				RAMFBPutPix(x+i,y+i,0xFFFFFF);
-			break;
-		default:
-			RAMFBPutRect(x,y,7,7,0xFFFFFF);
-			break;
-			
-		//todo: add support more special characters
-	}
-
+    for (uint32_t yy = 0; yy < 8; yy++) {
+        for (uint32_t xx = 0; xx < 8; xx++) {
+            if (BitmapFont[chr][yy] & (1 << xx)) {
+                RAMFBPutPix(x + xx, y + yy,0xFFFFFF);
+            }
+        }
+    }
 }
 
 void RAMFBPutStr(char* str) {
 	for(int i = 0; str[i] != 0; i++) {
-		if (CursorX+10 >= ScreenW) {
-			CursorY+=10;
+		if (CursorX+8 >= ScreenW) {
+			CursorY+=9;
 			CursorX = 0;
 		}
 		if (str[i] == '\n') {
-			CursorY+=10;
+			CursorY+=9;
 			CursorX = 0;
 		} else {
-			RAMFBPutChar(CursorX,CursorY,toupper(str[i]));
-			CursorX+=10;
+			RAMFBPutChar(CursorX,CursorY,str[i]);
+			CursorX+=8;
 		}
 	}
 }
