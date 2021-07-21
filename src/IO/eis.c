@@ -17,3 +17,9 @@ int SSEDetect() {
     _cpuid(0x1, &eax, &ebx, &ecx, &edx);
     return (ebx & (1 << 25)) | (ebx & (1 << 26)) | (ecx & (1 << 0)) | (ecx & (1 << 19)) | (ecx & (1 << 20));
 }
+
+int AVXDetect() {
+    uint32_t eax, ebx, ecx, edx;
+    _cpuid(0x1, &eax, &ebx, &ecx, &edx);
+    return (ecx & (1 << 28)); 
+}

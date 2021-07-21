@@ -20,3 +20,9 @@ int CPUIDDetect() {
 	char* brand = CPUIDGetBrand();
 	return brand[0] != 0;
 }
+
+int CPUIDIs64Bit() {
+    uint32_t eax, ebx, ecx, edx;
+    _cpuid(0x80000001, &eax, &ebx, &ecx, &edx);
+	return (edx & (1 << 29));
+}

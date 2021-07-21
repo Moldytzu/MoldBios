@@ -56,11 +56,17 @@ extern void PMEntry() {
     RAMFBPutStr("MoldBios: CPUID: ");
     RAMFBPutStr(CPUIDDetect() ? "Supported\n" : "Not supported\n");
 
+    RAMFBPutStr("MoldBios: 64-bit CPU: ");
+    RAMFBPutStr(CPUIDIs64Bit() ? "Yes\n" : "No\n");
+
     RAMFBPutStr("MoldBios: x87 FPU: ");
     RAMFBPutStr(FPUDetect() ? "Present\n" : "Not present\n");
 
     RAMFBPutStr("MoldBios: SSE: ");
     RAMFBPutStr(SSEDetect() ? "Supported\n" : "Not supported\n");
+
+    RAMFBPutStr("MoldBios: AVX: ");
+    RAMFBPutStr(AVXDetect() ? "Supported\n" : "Not supported\n");
 
     RAMFBPutStr("MoldBios: AHCI controller: ");
     RAMFBPutStr(AHCIDetectController() ? "Present\n" : "Not present\n");
