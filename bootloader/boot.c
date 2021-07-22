@@ -1,9 +1,9 @@
 #include "moldlib.h"
 
 void BEntry(struct MoldBootDescriptor* mbdesc) {
-    globalMBDesc = mbdesc;
+    MBPopulateAdresses(mbdesc);
 
-    PutStr("Hello from bootloader!");
+    PutStr("Hello from bootloader!\n");
 
     while(1);
 }

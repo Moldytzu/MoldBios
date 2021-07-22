@@ -2,6 +2,7 @@
 #include <stdint.h>
 
 #define MB_T_PUTSTR 0
+#define MB_T_PUTSTRS 1
 
 struct __attribute__((packed)) MoldBootEntry {
     void* Address;

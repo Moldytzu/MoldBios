@@ -108,9 +108,12 @@ extern void PMEntry() {
         mbdesc.signature[0] = 'M';
         mbdesc.signature[1] = 'B';
 
-        mbdesc.numEntries = 1;
+        mbdesc.numEntries = 2;
         mbdesc.entries[0].Address = RAMFBPutStr;
         mbdesc.entries[0].Type = MB_T_PUTSTR;
+
+        mbdesc.entries[1].Address = SerialPutStr;
+        mbdesc.entries[1].Type = MB_T_PUTSTRS;
 
         void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300000;
         boot(&mbdesc);

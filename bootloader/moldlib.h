@@ -1,14 +1,10 @@
 #pragma once
 #include <stdint.h>
 
-static struct MoldBootDescriptor* globalMBDesc;
-
-static void SerialPutStr(char* str) {
-    for(int i = 0;str[i] != 0;i++)
-        asm volatile("out %0, %1" :: "a"(str[i]), "Nd"(0x3F8));
-}
+static void* Addresses[32];
 
 #define MB_T_PUTSTR 0
+#define MB_T_PUTSTRS 1
 
 struct __attribute__((packed)) MoldBootEntry {
     void* Address;
@@ -30,16 +26,18 @@ struct __attribute__((packed)) MoldBootDescriptor {
     struct MoldBootEntry entries[32];
 };
 
-static void* MBGetFunctionByType(uint8_t type) {
+static void MBPopulateAdresses(struct MoldBootDescriptor* globalMBDesc) {
     for(int i = 0;i<globalMBDesc->numEntries;i++){
-        if(globalMBDesc->entries[i].Type == type){
-            return globalMBDesc->entries[i].Address;
-        }
+        Addresses[globalMBDesc->entries[i].Type]=globalMBDesc->entries[i].Address;
     }
-    return 0;
 }
 
 static void PutStr(char* string) {
-    if(MBGetFunctionByType(MB_T_PUTSTR) != 0)
-        ((void (*)(char*))MBGetFunctionByType(MB_T_PUTSTR))(string);
+    if(Addresses[MB_T_PUTSTR] != 0)
+        ((void (*)(char*))Addresses[MB_T_PUTSTR])(string);
+}
+
+static void PutStrS(char* string) {
+    if(Addresses[MB_T_PUTSTRS] != 0)
+        ((void (*)(char*))Addresses[MB_T_PUTSTRS])(string);
 }
