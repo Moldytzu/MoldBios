@@ -91,6 +91,12 @@ extern void PMEntry() {
 
     if(FPUDetect())
         FPUInit();
+
+    if(SSEDetect())
+        SSEInit();
+
+    if(AVXDetect())
+        AVXInit();
     
     RAMFBPutStr("MoldBios: Power On Self Test passed!\n\n");
 

@@ -11,6 +11,8 @@ void FPUInit();
 
 //SSE
 int SSEDetect();
+void SSEInit();
 
 //AVX
 int AVXDetect();
+void AVXInit();
