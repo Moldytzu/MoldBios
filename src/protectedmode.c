@@ -43,6 +43,7 @@ extern void PMEntry() {
     else if(IS_I440FX)
         RAMFBPutStr("i440FX\n");
     else if(IS_MICROVM){
+        RAMFBPutStr("MicroVM / Unsupported\n");
         PCSpeakerBeep();
         PCSpeakerBeep();
     	while(1);

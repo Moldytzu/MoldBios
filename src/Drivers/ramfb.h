@@ -21,6 +21,7 @@
 #define CursorY *((uint32_t*)0x1004)
 #define ScreenW *((uint16_t*)0x1008)
 #define ScreenH *((uint32_t*)0x100A)
+#define FontScaling 1
 
 struct FWCFGFile {
     uint32_t Size;

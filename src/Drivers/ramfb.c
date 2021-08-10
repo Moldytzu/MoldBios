@@ -1,10 +1,6 @@
 #include "ramfb.h"
 #include "../IO/speaker.h"
 #include "../Misc/bmpfont.h"
-
-uint32_t cursorX = 0;
-uint32_t cursorY = 0;
-
 int FWCFGLocateFile(char *filename, struct FWCFGFile *info) {
     uint32_t items;
     uint32_t offset = 0;
@@ -71,7 +67,7 @@ void RAMFBPutChar(int x, int y, char chr) {
     for (uint32_t yy = 0; yy < 8; yy++) {
         for (uint32_t xx = 0; xx < 8; xx++) {
             if (BitmapFont[chr][yy] & (1 << xx)) {
-                RAMFBPutPix(x + xx, y + yy,0xFFFFFF);
+                RAMFBPutRectF(x + xx*FontScaling, y + yy*FontScaling,FontScaling,FontScaling,0xFFFFFF);
             }
         }
     }
@@ -79,16 +75,16 @@ void RAMFBPutChar(int x, int y, char chr) {
 
 void RAMFBPutStr(char* str) {
 	for(int i = 0; str[i] != 0; i++) {
-		if (CursorX+8 >= ScreenW) {
-			CursorY+=9;
+		if (CursorX+8*FontScaling >= ScreenW) {
+			CursorY+=9*FontScaling;
 			CursorX = 0;
 		}
 		if (str[i] == '\n') {
-			CursorY+=9;
+			CursorY+=9*FontScaling;
 			CursorX = 0;
 		} else {
 			RAMFBPutChar(CursorX,CursorY,str[i]);
-			CursorX+=8;
+			CursorX+=8*FontScaling;
 		}
 	}
 }
