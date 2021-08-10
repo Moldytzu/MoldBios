@@ -7,11 +7,13 @@
 #define MB_F_PUTSTR 0
 #define MB_F_PUTSTRS 1
 #define MB_F_INTSTR 2
+#define MB_F_DISKREAD 3
 
 #define PutStr(string) ((void (*)(char*))GlobalMB->entries[MB_F_PUTSTR])(string)
 #define PutStrSerial(string) ((void (*)(char*))GlobalMB->entries[MB_F_PUTSTRS])(string)
 #define PutPix(x,y,colour) *(uint32_t*)(x*4 + (GlobalMB->hardware.FrameBuffer.Width*y *4) + GlobalMB->hardware.FrameBuffer.Address) = colour;
 #define inttostr(num) ((char* (*)())GlobalMB->entries[MB_F_INTSTR])(num)
+#define ReadDisk(lba) ((uint8_t* (*)())GlobalMB->entries[MB_F_DISKREAD])(lba)
 
 struct __attribute__((packed)) MoldBootMemoryMap {
     uint32_t HardwareReservedStart;

@@ -115,10 +115,11 @@ extern void PMEntry() {
         mbdesc.signature[0] = 'M';
         mbdesc.signature[1] = 'B';
 
-        mbdesc.numEntries = 3;
-        mbdesc.entries[MB_T_PUTSTR] = RAMFBPutStr;
-        mbdesc.entries[MB_T_PUTSTRS] = SerialPutStr;
-        mbdesc.entries[MB_T_INTSTR] = inttostr;
+        mbdesc.numEntries = 4;
+        mbdesc.entries[MB_F_PUTSTR] = RAMFBPutStr;
+        mbdesc.entries[MB_F_PUTSTRS] = SerialPutStr;
+        mbdesc.entries[MB_F_INTSTR] = inttostr;
+        mbdesc.entries[MB_F_DISKREAD] = ATAReadLBA;
 
         mbdesc.hardware.FrameBuffer.Address = VideoMemory;
         mbdesc.hardware.FrameBuffer.Height = ScreenH;

@@ -1,9 +1,10 @@
 #pragma once
 #include <stdint.h>
 
-#define MB_T_PUTSTR 0
-#define MB_T_PUTSTRS 1
-#define MB_T_INTSTR 2
+#define MB_F_PUTSTR 0
+#define MB_F_PUTSTRS 1
+#define MB_F_INTSTR 2
+#define MB_F_DISKREAD 3
 
 struct __attribute__((packed)) MoldBootMemoryMap {
     uint32_t HardwareReservedStart;
