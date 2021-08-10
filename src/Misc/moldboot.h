@@ -3,6 +3,7 @@
 
 #define MB_T_PUTSTR 0
 #define MB_T_PUTSTRS 1
+#define MB_T_INTSTR 2
 
 struct __attribute__((packed)) MoldBootMemoryMap {
     uint32_t HardwareReservedStart;

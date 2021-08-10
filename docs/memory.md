@@ -7,3 +7,5 @@
 ### 0x100000 to 0x300000 is Video Framebuffer area
 ### 0x300000 to 0x301000 is Boot Sector area
 ### 0x301000 to 0xFFFFFF is Free RAM
+###
+### If you don't use the firmware functions and you overwrite the stack pointer, you could use the firmware reserved areas 

@@ -7,6 +7,8 @@ void BEntry(struct MoldBootDescriptor* mbdesc) {
         for(int j = 0;j<=100;j++)
             PutPix(i,j,0xFF00FF);
 
-    PutStr("A pink square should have appeard.\n");
+    PutStr("Memory Size: ");
+    PutStr(inttostr(mbdesc->hardware.MemoryMap.FreeEnd / 1024 / 1024 + 1));
+    PutStr(" MB\n");
     while(1);
 }
