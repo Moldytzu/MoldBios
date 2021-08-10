@@ -119,6 +119,10 @@ extern void PMEntry() {
         mbdesc.entries[MB_T_PUTSTR] = RAMFBPutStr;
         mbdesc.entries[MB_T_PUTSTRS] = SerialPutStr;
 
+        mbdesc.hardware.FramebufferAddress = VideoMemory;
+        mbdesc.hardware.FramebufferHeight = ScreenH;
+        mbdesc.hardware.FramebufferWidth = ScreenW;
+
         void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300000;
         boot(&mbdesc);
     }

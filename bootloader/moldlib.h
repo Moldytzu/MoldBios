@@ -9,18 +9,19 @@
 
 #define PutStr(string) ((void (*)(char*))GlobalMB->entries[MB_F_PUTSTR])(string);
 #define PutStrSerial(string) ((void (*)(char*))GlobalMB->entries[MB_F_PUTSTRS])(string);
+#define PutPix(x,y,colour) *(uint32_t*)(x*4 + (GlobalMB->hardware.FramebufferWidth*y *4) + GlobalMB->hardware.FramebufferAddress) = colour;
 
 struct __attribute__((packed)) MoldBootHardware {
     void* MemoryMapAddress;
 
     void* FramebufferAddress;
-    void* FramebufferWidth;
-    void* FramebufferHeight;
+    uint32_t FramebufferWidth;
+    uint32_t FramebufferHeight;
 };
 
 struct __attribute__((packed)) MoldBootDescriptor {
     uint8_t signature[2]; //Always MB
     uint8_t numEntries;
-    struct MoldBootHardware hw;
+    struct MoldBootHardware hardware;
     void* entries[32];
 };

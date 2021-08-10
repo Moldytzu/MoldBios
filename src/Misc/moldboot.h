@@ -8,13 +8,13 @@ struct __attribute__((packed)) MoldBootHardware {
     void* MemoryMapAddress;
 
     void* FramebufferAddress;
-    void* FramebufferWidth;
-    void* FramebufferHeight;
+    uint32_t FramebufferWidth;
+    uint32_t FramebufferHeight;
 };
 
 struct __attribute__((packed)) MoldBootDescriptor {
     uint8_t signature[2]; //Always MB
     uint8_t numEntries;
-    struct MoldBootHardware hw;
+    struct MoldBootHardware hardware;
     void* entries[32];
 };
