@@ -136,7 +136,12 @@ extern void PMEntry() {
         boot(&mbdesc);
     }
 
+    RAMFBPutStr("No bootable medium found!\n");
+
+    PCSpeakerBeep();
+    PCSpeakerBeep();
+
     while(1) {
-    	asm ("hlt");
+    	asm volatile ("hlt");
     }
 }
