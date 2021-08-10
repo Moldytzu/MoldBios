@@ -33,7 +33,7 @@ extern void PMEntry() {
     RAMFBPutStr("\n");
 
     RAMFBPutStr("MoldBios: RAM: ");
-    RAMFBPutStr(inttostr(RAMDetect()));
+    RAMFBPutStr(inttostr(RAMDetect()/1024));
     RAMFBPutStr(" MB\n");
     
 	RAMFBPutStr("MoldBios: Chipset: ");
@@ -119,9 +119,16 @@ extern void PMEntry() {
         mbdesc.entries[MB_T_PUTSTR] = RAMFBPutStr;
         mbdesc.entries[MB_T_PUTSTRS] = SerialPutStr;
 
-        mbdesc.hardware.FramebufferAddress = VideoMemory;
-        mbdesc.hardware.FramebufferHeight = ScreenH;
-        mbdesc.hardware.FramebufferWidth = ScreenW;
+        mbdesc.hardware.FrameBuffer.Address = VideoMemory;
+        mbdesc.hardware.FrameBuffer.Height = ScreenH;
+        mbdesc.hardware.FrameBuffer.Width = ScreenW;
+
+        mbdesc.hardware.MemoryMap.FirmwareReservedStart = 0x1000;
+        mbdesc.hardware.MemoryMap.FirmwareReservedEnd = 0xFFFF;
+        mbdesc.hardware.MemoryMap.HardwareReservedStart = 0x0;
+        mbdesc.hardware.MemoryMap.HardwareReservedEnd = 0x1000;
+        mbdesc.hardware.MemoryMap.FreeStart = 0x301000;
+        mbdesc.hardware.MemoryMap.FreeEnd = RAMDetect()*1024-1024;
 
         void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300000;
         boot(&mbdesc);

@@ -4,12 +4,26 @@
 #define MB_T_PUTSTR 0
 #define MB_T_PUTSTRS 1
 
-struct __attribute__((packed)) MoldBootHardware {
-    void* MemoryMapAddress;
+struct __attribute__((packed)) MoldBootMemoryMap {
+    uint32_t HardwareReservedStart;
+    uint32_t HardwareReservedEnd;
+    
+    uint32_t FirmwareReservedStart;
+    uint32_t FirmwareReservedEnd;
 
-    void* FramebufferAddress;
-    uint32_t FramebufferWidth;
-    uint32_t FramebufferHeight;
+    uint32_t FreeStart;
+    uint32_t FreeEnd;
+};
+
+struct __attribute__((packed)) MoldBootFrameBuffer {
+    void* Address;
+    uint32_t Width;
+    uint32_t Height;
+};
+
+struct __attribute__((packed)) MoldBootHardware {
+    struct MoldBootMemoryMap MemoryMap;
+    struct MoldBootFrameBuffer FrameBuffer;
 };
 
 struct __attribute__((packed)) MoldBootDescriptor {

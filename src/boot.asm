@@ -32,7 +32,7 @@ boot:
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    mov esp, 0x20000
+    mov esp, 0x3000
 
     ;Jump
     jmp dword 0x08:CBin
