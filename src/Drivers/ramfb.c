@@ -51,7 +51,7 @@ void FWCFGWrite(uint16_t selector, const void *buf, uint32_t len, uint32_t offse
 }
 
 void RAMFBPutPix(int x,int y, uint32_t clr) {
-	*(uint32_t*)(x*4 + (800*y *4) + VideoMemory) = clr;
+	*(uint32_t*)(x*4 + (ScreenW*y *4) + VideoMemory) = clr;
 }
 
 void RAMFBPutRectF(int x,int y, int w, int h, uint32_t clr) {
