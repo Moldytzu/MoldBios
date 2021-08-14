@@ -110,31 +110,34 @@ extern void PMEntry() {
         for(int i = 0;i<8;i++){
             memcpy(0x300000+(i*0x200),ATAReadLBA(i),512);
         }
-        
-        struct MoldBootDescriptor mbdesc;
 
-        mbdesc.signature[0] = 'M';
-        mbdesc.signature[1] = 'B';
+        if(*((uint16_t*)0x300000) == 0xDEAD) {
+            struct MoldBootDescriptor mbdesc;
 
-        mbdesc.numEntries = 4;
-        mbdesc.entries[MB_F_PUTSTR] = RAMFBPutStr;
-        mbdesc.entries[MB_F_PUTSTRS] = SerialPutStr;
-        mbdesc.entries[MB_F_INTSTR] = inttostr;
-        mbdesc.entries[MB_F_DISKREAD] = ATAReadLBA;
+            mbdesc.signature[0] = 'M';
+            mbdesc.signature[1] = 'B';
 
-        mbdesc.hardware.FrameBuffer.Address = VideoMemory;
-        mbdesc.hardware.FrameBuffer.Height = ScreenH;
-        mbdesc.hardware.FrameBuffer.Width = ScreenW;
+            mbdesc.numEntries = 4;
+            mbdesc.entries[MB_F_PUTSTR] = RAMFBPutStr;
+            mbdesc.entries[MB_F_PUTSTRS] = SerialPutStr;
+            mbdesc.entries[MB_F_INTSTR] = inttostr;
+            mbdesc.entries[MB_F_DISKREAD] = ATAReadLBA;
 
-        mbdesc.hardware.MemoryMap.FirmwareReservedStart = 0x1000;
-        mbdesc.hardware.MemoryMap.FirmwareReservedEnd = 0xFFFF;
-        mbdesc.hardware.MemoryMap.HardwareReservedStart = 0x0;
-        mbdesc.hardware.MemoryMap.HardwareReservedEnd = 0x1000;
-        mbdesc.hardware.MemoryMap.FreeStart = 0x301000;
-        mbdesc.hardware.MemoryMap.FreeEnd = RAMDetect()*1024-1024;
+            mbdesc.hardware.FrameBuffer.Address = VideoMemory;
+            mbdesc.hardware.FrameBuffer.Height = ScreenH;
+            mbdesc.hardware.FrameBuffer.Width = ScreenW;
 
-        void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300000;
-        boot(&mbdesc);
+            mbdesc.hardware.MemoryMap.FirmwareReservedStart = 0x1000;
+            mbdesc.hardware.MemoryMap.FirmwareReservedEnd = 0xFFFF;
+            mbdesc.hardware.MemoryMap.HardwareReservedStart = 0x0;
+            mbdesc.hardware.MemoryMap.HardwareReservedEnd = 0x1000;
+            mbdesc.hardware.MemoryMap.FreeStart = 0x301000;
+            mbdesc.hardware.MemoryMap.FreeEnd = RAMDetect()*1024-1024;
+
+            void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300002;
+            boot(&mbdesc);
+        }
+
     }
 
     RAMFBPutStr("No bootable medium found!\n");

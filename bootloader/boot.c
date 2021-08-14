@@ -1,5 +1,7 @@
 #include "moldlib.h"
 
+uint16_t Signature = 0xDEAD;
+
 void BEntry(struct MoldBootDescriptor* mbdesc) {
     PutStr("Hello from my beautiful bootloader that now works!\n");
 
