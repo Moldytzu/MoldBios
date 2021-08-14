@@ -8,3 +8,4 @@
 
 void PS2Init();
 uint8_t PS2Detect();
+void PS2WaitForKey();

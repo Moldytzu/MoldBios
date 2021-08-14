@@ -13,10 +13,30 @@ uint8_t PS2Test() {
 	PS2WaitResponse();
 	return inb(PS2_DATA_PORT) == 0x55;
 }
+void PS2WaitForKey() {
+    while(1) {
+        if(inb(0x60) > 1) break;
+    }
+}
+
 
 uint8_t PS2Detect() {
 	//Detect if PS/2 is present by self testing it
 	return PS2Test();
+}
+
+uint8_t PS2GetConfig() {
+	PS2WaitInput();
+	outb(PS2_COMMAND_PORT,0x20); //Get Config
+	PS2WaitResponse();
+	return inb(0x60);	
+}
+
+void PS2SetConfig(uint8_t cfg) {
+	PS2WaitInput();
+	outb(PS2_COMMAND_PORT,0x60); //Set Config
+	PS2WaitInput();
+	outb(0x60,cfg);	
 }
 
 void PS2Init() {
@@ -30,11 +50,21 @@ void PS2Init() {
 	
 	inb(PS2_DATA_PORT); //Flush data
 	
+	PS2SetConfig(PS2GetConfig() & ~1); //Disable IRQs
+	PS2SetConfig(PS2GetConfig() & ~(1 << 1));
+	
+	PS2SetConfig(PS2GetConfig() & ~(1 << 6)); //Disable translation
+	
+	PS2Test(); //Self test
+	
 	outb(PS2_COMMAND_PORT,0xAE); //Enable first port
 	PS2WaitInput();
 	
 	outb(PS2_COMMAND_PORT,0xA8); //Enable second port
 	PS2WaitInput();
+	
+	PS2SetConfig(PS2GetConfig() | 1); //Enable IRQs
+	PS2SetConfig(PS2GetConfig() | (1 << 1));
 	
 	outb(PS2_COMMAND_PORT,0xFF); //Reset Keyboard
 	PS2WaitInput();
