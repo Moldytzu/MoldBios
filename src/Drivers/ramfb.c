@@ -108,7 +108,7 @@ void RAMFBInit(int width, int height) {
         ScreenW = width;
         ScreenH = height;
         
-        memset(VideoMemory,0,VideoMemory);
+        memset(VideoMemory,0,(width*height) * (32 / 8));
         
         SerialPutStr("MoldBios: Initialized RAMFB\n");
     } else {
