@@ -19,8 +19,9 @@
 
 #define CursorX *((uint32_t*)0x1000)
 #define CursorY *((uint32_t*)0x1004)
-#define ScreenW *((uint16_t*)0x1008)
-#define ScreenH *((uint32_t*)0x100A)
+#define ScreenW *((uint32_t*)0x1008)
+#define ScreenH *((uint32_t*)0x100C)
+#define Color *((uint32_t*)0x1010)
 #define FontScaling 1
 
 struct FWCFGFile {
@@ -51,3 +52,4 @@ void RAMFBPutRect(int x,int y, int w, int h, uint32_t clr);
 void RAMFBPutRectF(int x,int y, int w, int h, uint32_t clr);
 void RAMFBPutChar(int x, int y, char chr);
 void RAMFBPutStr(char* str);
+void RAMFBSetColor(uint32_t color);

@@ -67,7 +67,7 @@ void RAMFBPutChar(int x, int y, char chr) {
     for (uint32_t yy = 0; yy < 8; yy++) {
         for (uint32_t xx = 0; xx < 8; xx++) {
             if (BitmapFont[chr][yy] & (1 << xx)) {
-                RAMFBPutRectF(x + xx*FontScaling, y + yy*FontScaling,FontScaling,FontScaling,0xFFFFFF);
+                RAMFBPutRectF(x + xx*FontScaling, y + yy*FontScaling,FontScaling,FontScaling,Color);
             }
         }
     }
@@ -89,6 +89,10 @@ void RAMFBPutStr(char* str) {
 	}
 }
 
+void RAMFBSetColor(uint32_t color) {
+    Color = color;
+}
+
 void RAMFBInit(int width, int height) {	
     struct FWCFGFile file;
     FWCFGLocateFile("etc/ramfb", &file); //get the ramfb file
@@ -107,7 +111,8 @@ void RAMFBInit(int width, int height) {
         CursorY = 0;
         ScreenW = width;
         ScreenH = height;
-        
+        Color = 0xFFFFFF;
+
         memset(VideoMemory,0,(width*height) * (32 / 8));
         
         SerialPutStr("MoldBios: Initialized RAMFB\n");

@@ -5,6 +5,7 @@
 #define MB_F_PUTSTRS 1
 #define MB_F_INTSTR 2
 #define MB_F_DISKREAD 3
+#define MB_F_SETCLR 4
 
 struct __attribute__((packed)) MoldBootMemoryMap {
     uint32_t HardwareReservedStart;

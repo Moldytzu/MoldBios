@@ -2,7 +2,7 @@ ASM = nasm
 ASMFLAGS = -fbin
 
 CC = gcc
-CFLAGS = -m32 -ffreestanding -fno-pic -w 
+CFLAGS = -m32 -ffreestanding -fno-pic -w  -Os
 
 LD = ld
 LDFLAGS = -nostdlib -static -T link.ld

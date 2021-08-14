@@ -43,11 +43,14 @@ extern void PMEntry() {
     else if(IS_I440FX)
         RAMFBPutStr("i440FX\n");
     else if(IS_MICROVM){
-        RAMFBPutStr("MicroVM / Unsupported\n");
+        RAMFBSetColor(0xFF0000);
+        RAMFBPutStr("MicroVM (Unsupported)\n");
         PCSpeakerBeep();
         PCSpeakerBeep();
     	while(1);
     } else {
+        RAMFBSetColor(0xFF0000);
+        RAMFBPutStr("Unknown\n");
         PCSpeakerBeep();
         PCSpeakerBeep();
         PCSpeakerBeep();
@@ -100,15 +103,16 @@ extern void PMEntry() {
     if(AVXDetect())
         AVXInit();
     
+    RAMFBSetColor(0x00FF00);
     RAMFBPutStr("MoldBios: Power On Self Test passed!\n\n");
+    RAMFBSetColor(0xFFFFFF);
 
     PCSpeakerBeep();
     
     if(ATADetect()) {
-        RAMFBPutStr("Booting from IDE hard disk\n");
         //Copying first 8 sectors (4 kb) from the hard disk into memory
         for(int i = 0;i<8;i++){
-            memcpy(0x300000+(i*0x200),ATAReadLBA(i),512);
+            ATAReadLBA(i,0x300000+(i*0x200));
         }
 
         if(*((uint16_t*)0x300000) == 0xDEAD) {
@@ -117,11 +121,12 @@ extern void PMEntry() {
             mbdesc.signature[0] = 'M';
             mbdesc.signature[1] = 'B';
 
-            mbdesc.numEntries = 4;
+            mbdesc.numEntries = 5;
             mbdesc.entries[MB_F_PUTSTR] = RAMFBPutStr;
             mbdesc.entries[MB_F_PUTSTRS] = SerialPutStr;
             mbdesc.entries[MB_F_INTSTR] = inttostr;
             mbdesc.entries[MB_F_DISKREAD] = ATAReadLBA;
+            mbdesc.entries[MB_F_SETCLR] = RAMFBSetColor;
 
             mbdesc.hardware.FrameBuffer.Address = VideoMemory;
             mbdesc.hardware.FrameBuffer.Height = ScreenH;
@@ -134,12 +139,14 @@ extern void PMEntry() {
             mbdesc.hardware.MemoryMap.FreeStart = 0x301000;
             mbdesc.hardware.MemoryMap.FreeEnd = RAMDetect()*1024-1024;
 
+            RAMFBPutStr("Booting from IDE hard disk\n");
             void (*boot)(struct MoldBootDescriptor*) = (void (*)(struct MoldBootDescriptor*))0x300002;
             boot(&mbdesc);
         }
 
     }
 
+    RAMFBSetColor(0xFF0000);
     RAMFBPutStr("No bootable medium found!\n");
 
     PCSpeakerBeep();
