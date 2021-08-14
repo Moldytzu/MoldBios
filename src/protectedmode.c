@@ -84,8 +84,13 @@ extern void PMEntry() {
 
 	RAMFBPutStr("MoldBios: Detection complete!\n");
     
-    if(PS2Detect())
-    	PS2Init();
+    if(PS2Detect()) {
+        PS2Init();
+      
+        while(1) {
+        	RAMFBPutStr(inttostr(inb(0x60)));
+        }
+    }
     	
     if(FloppyGetDrives())
     	FloppyInit(FLOPPY_DRIVE_MASTER);
