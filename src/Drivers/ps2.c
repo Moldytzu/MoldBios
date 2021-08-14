@@ -13,12 +13,13 @@ uint8_t PS2Test() {
 	PS2WaitResponse();
 	return inb(PS2_DATA_PORT) == 0x55;
 }
-void PS2WaitForKey() {
+uint8_t PS2WaitForKey() {
+	const char ScanCodeSet1[] = {0,0,'1','2','3','4','5','6','7','8','9','0','-','=','\b',0,'q','w','e','r','t','y','u','i','o','p','[',']','\n',0,'a','s','d','f','g','h','j','k','l',';','\'','`',0,'\\','z','x','c','v','b','n','m',',','.','/',0,'*',0,' '};
     while(1) {
-        if(inb(0x60) > 1) break;
+		uint8_t c = inb(0x60);
+        if(c > 0) return ScanCodeSet1[c];
     }
 }
-
 
 uint8_t PS2Detect() {
 	//Detect if PS/2 is present by self testing it
@@ -65,7 +66,9 @@ void PS2Init() {
 	
 	PS2SetConfig(PS2GetConfig() | 1); //Enable IRQs
 	PS2SetConfig(PS2GetConfig() | (1 << 1));
-	
+
+	PS2SetConfig(PS2GetConfig() | (1 << 6)); //Enable translation
+
 	outb(PS2_COMMAND_PORT,0xFF); //Reset Keyboard
 	PS2WaitInput();
 	
@@ -73,6 +76,12 @@ void PS2Init() {
 	PS2WaitInput();
 	outb(PS2_COMMAND_PORT,0xFF); //Reset Mouse
 	PS2WaitInput();
+
+	RAMFBSetColor(0xFFF000);
+	RAMFBPutStr("MoldBios: Press any key to continue!\n");
+	PS2WaitResponse();
+
+	RAMFBSetColor(0xFFFFFF);
 	
 	RAMFBPutStr("MoldBios: PS/2 controller initialized!\n");
 }
