@@ -4,11 +4,21 @@
 //IMPORTANT: change this if you change the variable name of the entry parameter
 #define GlobalMB mbdesc
 
-#define MB_F_PUTSTR 0
-#define MB_F_PUTSTRS 1
-#define MB_F_INTSTR 2
+#define MB_F_PUTSTR   0
+#define MB_F_PUTSTRS  1
+#define MB_F_INTSTR   2
 #define MB_F_DISKREAD 3
-#define MB_F_SETCLR 4
+#define MB_F_SETCLR   4
+
+#define WHITE   0xFFFFFF
+#define BLACK   0x000000
+#define RED     0xFF0000
+#define GREEN   0x00FF00
+#define BLUE    0x0000FF
+#define YELLOW  0xFFF000
+#define MAGENTA 0xFF00F0
+#define CYAN    0x00FFF0
+#define ORANGE  0xFFA500
 
 #define PutStr(string) ((void (*)(char*))GlobalMB->entries[MB_F_PUTSTR])(string)
 #define PutStrSerial(string) ((void (*)(char*))GlobalMB->entries[MB_F_PUTSTRS])(string)
